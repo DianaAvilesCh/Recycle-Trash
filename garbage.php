@@ -7,9 +7,9 @@ if ($con) {
     echo "Conexion con base de datos exitosa! ";
 
 
-    if (isset($_POST['d1'])) {
-        $d1 = $_POST['d1'];
-        //echo "Distancia de tachos";
+    if (isset($_GET['d1'])) {
+        $d1 = $_GET['d1'];
+        echo '$d1';
         //echo " Distancia 1: ".$d1;
     }
 

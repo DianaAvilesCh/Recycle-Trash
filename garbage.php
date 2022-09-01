@@ -5,10 +5,7 @@ include 'conexion.php';
 if ($con) {
 
     echo "Conexion con base de datos exitosa! ";
-    //$result = print_r($con, true);
-    //echo $result;
-    //$hola  = $_POST['d1'];
-    //echo $hola;
+
 
     if (isset($_POST['d1'])) {
         $d1 = $_POST['d1'];

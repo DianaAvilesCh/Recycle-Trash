@@ -5,12 +5,5 @@
     $db ="dbname=d4g4et7022hh71 ";
     $user = "user=dowwjwpkqwunlw ";
     $pass = "password=be654f696b5680cf088e583b7f20d7982b287c9b55c9db4a5411393452c1e60f";
-    echo "$host $port $db $user $pass";
-    //echo $conectar;
     $con = pg_connect("$host $port $db $user $pass");
-    
-
-if($con){
-    echo "Hola que hace";
-}
 ?>

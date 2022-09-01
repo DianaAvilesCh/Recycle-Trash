@@ -1,5 +1,8 @@
-<?php 
+<?php
+include 'conexion.php';
 echo "Este es el incio";
+
+
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +21,35 @@ echo "Este es el incio";
 </head>
 
 <body>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">TACHO</th>
+                <th scope="col">DISTANCIA</th>
+                <th scope="col">FECHA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($con) {
+                $consulta = "SELECT * FROM state";
+                $resultado = pg_query($con, $consulta);
+                if (pg_num_rows($resultado)) {
+                    while ($obj = pg_fetch_object($resultado)) { ?>
+                        <tr>
+                            <td><?php echo $obj->id ?></td>
+                            <td><?php echo $obj->state_id_garbage ?></td>
+                            <td><?php echo $obj->destance ?></td>
+                            <td><?php echo $obj->date ?></td>
+                        </tr>
+            <?php }
+                }
+            }
+            ?>
+        </tbody>
+    </table>
 
 </body>
 

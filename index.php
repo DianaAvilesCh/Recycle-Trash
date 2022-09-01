@@ -1,8 +1,5 @@
 <?php
 include 'conexion.php';
-echo "Este es el incio";
-
-
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +18,8 @@ echo "Este es el incio";
 </head>
 
 <body>
+
+<a href="/garbage.php">Garbage</a>
 
     <table class="table">
         <thead>

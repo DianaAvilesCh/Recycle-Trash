@@ -37,7 +37,7 @@ if ($con) {
         }
 
         $consulta = "INSERT INTO state(state_id_garbage,destance,date) VALUES (1,'$d1','$fecha_actual')," +
-            "(2,'$d2','$fecha_actual'), (3,'$d3','$fecha_actual')";
+            "(2,'$d2','$fecha_actual'), (3,'$d3','$fecha_actual');";
         $resultado = pg_query($con, $consulta);
         $result = print_r($resultado, true);
         echo "\n" . $consulta;

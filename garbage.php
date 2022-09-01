@@ -7,19 +7,19 @@ if ($con) {
     echo "Conexion con base de datos exitosa! ";
 
 
-    if (isset($_GET['d1'])) {
-        $d1 = $_GET['d1'];
+    if (isset($_POST['d1'])) {
+        $d1 = $_POST['d1'];
         echo "Hola que ahce \n '$d1'";
         //echo " Distancia 1: ".$d1;
     }
 
-    if (isset($_GET['d2'])) {
-        $d2 = $_GET['d2'];
+    if (isset($_POST['d2'])) {
+        $d2 = $_POST['d2'];
         //echo " Distancia 2: ".$d2;
     }
 
-    if (isset($_GET['d3'])) {
-        $d3 = $_GET['d3'];
+    if (isset($_POST['d3'])) {
+        $d3 = $_POST['d3'];
         //echo " Distancia 3: ".$d3;
         date_default_timezone_set('america/bogota');
         $fecha_actual = date("Y-m-d H:i:s");

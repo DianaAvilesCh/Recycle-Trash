@@ -1,5 +1,7 @@
 <?php
 include 'conexion.php';
+echo '</br>';
+echo '</br>';
 ?>
 
 <!DOCTYPE html>

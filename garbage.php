@@ -1,48 +1,58 @@
-<?php 
+<?php
+include 'sidebar.html';
 include 'conexion.php';
-echo "TACHOS";
+echo '</br>';
+echo '</br>';
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- CSS only -->
+        <link rel="stylesheet" href="/css/style.css">
 
-    <title>Garbage</title>
-</head>
+        <title>Garbage</title>
+    </head>
 
-<body>
-    <hr class="border border-danger border-2 opacity-50">
-    <div class="container-sm">
-        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div> 
+    <body>
+        <div class="container">
+            <?php
+            if ($con) {
+                $consulta = "SELECT state.id, garbage.description, state.destance FROM state INNER join garbage ON garbage.id = state.state_id_garbage
+                where garbage.garbage_id_container='$id' ORDER BY state.id desc LIMIT 3;";
+                $resultado = pg_query($con, $consulta);
+                if (pg_num_rows($resultado)) {
+                    while ($obj = pg_fetch_object($resultado)) { ?>
+                        <div class="card <?php echo $obj->description ?>">
+                            <div class="box">
+                                <div class="circle-wrap">
+                                    <div role="progressbar" aria-valuenow="<?php $dato = $obj->destance;if ((int)$dato > 100) {$dato = 100;}echo (int)$dato ?>"
+                                     aria-valuemin="0" aria-valuemax="100" style="--value:<?php echo (int)$dato ?>">
+                                    </div>
+                                </div>
+                                <h2 class="text"><?php echo $obj->description ?></h2>
+                            </div>
+                        </div>
+            <?php }
+                }else{
+                    echo '</br><h1>No hay información</h1>';
+                }
+            }
+            ?>
         </div>
-        
-        <div class="card text-bg-info mb-3" style="max-width: 18rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-    </div>
 
-</body>
+    </body>
 
-</html>
-<html>
+    </html>
+    <html>
+<?php
+} else {
+    echo '<h1 style="padding:0px;">No hay información</h1>';
+}
+?>

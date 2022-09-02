@@ -18,6 +18,7 @@ include 'conexion.php';
 </head>
 
 <body>
+<?php include 'sidebar.html';?>
 
 <a href="/garbage.php">Garbage</a>
 

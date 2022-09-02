@@ -1,15 +1,22 @@
 @keyframes growProgressBar {
-    0%, 33% { --pgPercentage: 0; }
-    100% { --pgPercentage: var(--value); }
-  }
-  
-  @property --pgPercentage {
+
+    0%,
+    33% {
+        --pgPercentage: 0;
+    }
+
+    100% {
+        --pgPercentage: var(--value);
+    }
+}
+
+@property --pgPercentage {
     syntax: '<number>';
     inherits: false;
     initial-value: 0;
-  }
-  
-  div[role="progressbar"] {
+}
+
+div[role="progressbar"] {
     --size: 12rem;
     --fg: #369;
     --bg: #def;
@@ -20,35 +27,49 @@
     border-radius: 50%;
     display: grid;
     place-items: center;
-    background: 
-      radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
-      conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0)
-      ;
+    background:
+        radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
+        conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
     font-family: Helvetica, Arial, sans-serif;
     font-size: calc(var(--size) / 5);
     color: var(--fg);
-  }
-  
-  div[role="progressbar"]::before {
+}
+
+div[role="progressbar"]::before {
     counter-reset: percentage var(--value);
     content: counter(percentage) '%';
-  }
-  
-  /* demo */
-  body {
+}
+
+/* demo */
+body {
     margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-  }
-.container{
+}
+
+.container {
     Position: relative;
     width: 900px;
     display: flex;
     justify-content: space-around;
 }
-.container .card{
+
+@media(max-width:1030px) {
+    .container {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: auto;
+    }
+
+    .container .card {
+        margin-top: 10px;
+    }
+}
+
+.container .card {
     position: relative;
     width: 250px;
     display: flex;
@@ -58,20 +79,22 @@
     border-radius: 4px;
     text-align: center;
     overflow: hidden;
-    transition: 0.5s;
+    transition: 0.5s
 }
 
-.container .card:hover{
+.container .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, .5);
 }
 
-.container .Paper{
-    background: linear-gradient(0deg,#32d3df,#90b7c9,#32d3df);
+.container .Paper {
+    background: linear-gradient(0deg, #32d3df, #90b7c9, #32d3df);
 }
-.container .Plastic{
-    background: linear-gradient(0deg,#f1f518,#fced66,#f1f518);
+
+.container .Plastic {
+    background: linear-gradient(0deg, #f1f518, #fced66, #f1f518);
 }
-.container .Glass{
-    background: linear-gradient(0deg,#7cfa82,#7af1a2,#7cfa82);
+
+.container .Glass {
+    background: linear-gradient(0deg, #7cfa82, #7af1a2, #7cfa82);
 }

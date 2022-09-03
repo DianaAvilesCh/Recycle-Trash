@@ -21,12 +21,12 @@ if ($con) {
         $fecha_actual = date("Y-m-d H:i:s");
 
 
-        if ($d1 >150 ) {
-            $d1=50;
-        } if ($d2 >150 ) {
-            $d2=50;
-        } if ($d3 >150 ) {
-            $d3=50;
+        if ($d1 >160 ) {
+            $d1=160;
+        } if ($d2 >160 ) {
+            $d2=160;
+        } if ($d3 >160 ) {
+            $d3=160;
         }
 
         $consulta = "INSERT INTO state(state_id_garbage,destance,date) VALUES (1,'$d1','$fecha_actual'),

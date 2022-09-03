@@ -32,7 +32,8 @@ if (isset($_GET['id'])) {
                         <div class="card <?php echo $obj->description ?>">
                             <div class="box">
                                 <div class="circle-wrap">
-                                    <div role="progressbar" aria-valuenow="<?php $dato = $obj->destance;if ((int)$dato > 100) {$dato = 100;}echo (int)$dato ?>"
+                                    <div role="progressbar" aria-valuenow="<?php $dato = $obj->destance;if ((int)$dato > 45) {$dato = 45;}
+                                    $dato = 50-(int)$dato; echo (int)$dato ?>"
                                      aria-valuemin="0" aria-valuemax="100" style="--value:<?php echo (int)$dato ?>">
                                     </div>
                                 </div>

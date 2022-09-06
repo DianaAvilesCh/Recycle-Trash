@@ -1,6 +1,6 @@
 <?php
 include 'sidebar.html';
-include 'conexion.php';
+include('./controller/conexion.php');
 echo '</br>';
 echo '</br>';
 if (isset($_GET['id'])) {

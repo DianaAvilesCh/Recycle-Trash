@@ -1,11 +1,17 @@
 <?php
 //include('../class/accesos.php');
 if (isset($_POST['submit'])) {
-    $correo = $_POST['correo'];
+    $fname = $_POST['name'];
+$lname=$_POST['lname'];
+    $email = $_POST['email'];
     $pass = $_POST['pass'];
+
     $params = array(
-        'correo' => $correo,
+        'name' => $fname,
+        'lname' => $lname,
+        'email' => $email,
         'pass' => $pass
+        
     );
 
     $login = json_decode($accesos->login($params));

@@ -1,6 +1,6 @@
 <?php
 include 'sidebar.html';
-include 'conexion.php';
+include('./controller/conexion.php');
 echo '</br>';
 echo '</br>';
 ?>
@@ -47,6 +47,7 @@ echo '</br>';
             <?php }
                 }
             }
+            pg_close();
             ?>
         </tbody>
     </table>

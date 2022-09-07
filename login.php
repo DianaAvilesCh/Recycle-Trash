@@ -4,11 +4,11 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $pass = $_POST['pass'];
 
-    $sql = "SELECT person.email, person.password FROM person WHERE email = '$email';";
+    $sql = "SELECT * FROM select_login('$email');";
     $resultado = pg_query($con, $sql);
     if (pg_num_rows($resultado)) {
         $obj = pg_fetch_object($resultado);
-        $dato = $obj->password;
+        $dato = $obj->pass;
         // $hash = password_hash($dato, PASSWORD_DEFAULT);
         if (password_verify($pass, $dato)) {
             header("Status: 301 Moved Permanently");

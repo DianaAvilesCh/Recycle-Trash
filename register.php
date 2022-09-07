@@ -6,8 +6,7 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $pass = $_POST['pass'];
     $phash = password_hash($pass, PASSWORD_DEFAULT);
-    $sql = "INSERT INTO person (email, password, first_name, last_name) 
-    values ('$email','$phash','$fname','$lname');";
+    $sql = "SELECT public.insert_person('$email','$phash','$fname','$lname');";
     $resultado = pg_query($con, $sql);
     if ($resultado) {
         header("Status: 301 Moved Permanently");

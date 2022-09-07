@@ -9,14 +9,22 @@ if (isset($_POST['submit'])) {
     if (pg_num_rows($resultado)) {
         $obj = pg_fetch_object($resultado);
         $dato = $obj->password;
-        $hash = password_hash($dato, PASSWORD_DEFAULT);
-        if (password_verify($pass, $hash)) {
+        // $hash = password_hash($dato, PASSWORD_DEFAULT);
+        if (password_verify($pass, $dato)) {
             header("Status: 301 Moved Permanently");
             header("Location: ../index.php");
             exit;
-        } else {
-            echo 'incorrecto' . $pass, $hash;
+        } else { ?>
+            <script language="javascript">
+                alert("Incorrect Email address or password");
+            </script>
+        <?php
         }
+    } else { ?>
+        <script language="javascript">
+            alert("Incorrect Email address or password");
+        </script>
+<?php
     }
     pg_close();
 }

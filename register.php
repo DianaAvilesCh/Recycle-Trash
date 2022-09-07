@@ -1,28 +1,22 @@
 <?php
-//include('../class/accesos.php');
+include('./controller/conexion.php');
 if (isset($_POST['submit'])) {
     $fname = $_POST['name'];
-$lname=$_POST['lname'];
+    $lname = $_POST['lname'];
     $email = $_POST['email'];
     $pass = $_POST['pass'];
-
-    $params = array(
-        'name' => $fname,
-        'lname' => $lname,
-        'email' => $email,
-        'pass' => $pass
-        
-    );
-
-    $login = json_decode($accesos->login($params));
-
-    if ($login->estado == true) {
-        echo 'Se inicio sesion correctamente.';
-        print_r($login);
+    $phash = password_hash($pass, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO person (email, password, first_name, last_name) 
+    values ('$email','$phash','$fname','$lname');";
+    $resultado = pg_query($con, $sql);
+    if ($resultado) {
+        header("Status: 301 Moved Permanently");
+        header("Location: ../login.php");
+        exit;
     } else {
-        echo '<p>Ocurrio un error.</p>';
-        echo $login->mensaje;
+        echo 'incorrecto' . $pass, $hash;
     }
+    pg_close();
 }
 ?>
 <!DOCTYPE html>

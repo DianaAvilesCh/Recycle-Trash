@@ -9,7 +9,9 @@ if ($con) {
 
     $json = file_get_contents('php://input');
     $data = json_decode($json);
+    echo "aqui llegue";
     echo $data[0];
+    
 
 /*     if (isset($_POST['json'])) {
         $d1 = $_POST['json'];

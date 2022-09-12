@@ -77,15 +77,18 @@ p.w3l-register-p {
 }
 
 input[type="text"],
+input[type="email"],
 input[type="password"] {
     width: 100%;
     border: none;
     box-sizing: border-box;
     background: transparent;
     color: #000;
+    border-width: inherit;
 }
 
 input[type="text"]:focus,
+input[type="email"]:focus,
 input[type="password"]:focus {
     outline: none;
 }

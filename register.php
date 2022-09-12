@@ -57,14 +57,19 @@ if (isset($_POST['submit'])) {
                 <label>Email:</label>
                 <div class="group">
                 <ion-icon name="person-circle-outline"></ion-icon>
-                    <input type="text" class="form-control" placeholder="ejemplo@mail.com" name="email" required="required" />
+                    <input type="email" class="form-control" placeholder="ejemplo@mail.com" name="email"
+                     required="required" aria-describedby="emailHelp"/>
                 </div>
             </div>
             <div class=" w3l-form-group">
                 <label>Password:</label>
                 <div class="group">
                 <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input type="password" class="form-control" placeholder="Password" name="pass" required="required" />
+                    <input type="password" class="form-control" placeholder="Password" name="pass" 
+                    required="required" aria-describedby="passwordHelpBlock" />
+                    <div id="passwordHelpBlock" class="form-text">
+                        Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números, y no debe contener espacios, caracteres especiales ni emoji.
+                    </div>/>
                 </div>
             </div>
             <div class="forgot">

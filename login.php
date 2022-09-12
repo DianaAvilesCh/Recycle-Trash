@@ -1,5 +1,7 @@
 <?php
 include('./controller/conexion.php');
+// si esta definida sera igual a intentos en caso contrario sera 0
+$_SESSION["fails"] = isset($_SESSION["fails"]) ? $_SESSION["fails"] : 0;
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $pass = $_POST['pass'];
@@ -9,22 +11,39 @@ if (isset($_POST['submit'])) {
     if (pg_num_rows($resultado)) {
         $obj = pg_fetch_object($resultado);
         $dato = $obj->pass;
-        // $hash = password_hash($dato, PASSWORD_DEFAULT);
-        if (password_verify($pass, $dato)) {
-            header("Status: 301 Moved Permanently");
-            header("Location: ../index.php");
-            exit;
-        } else { ?>
-            <script language="javascript">
-                alert("Incorrect Email address or password");
-            </script>
-        <?php
-        }
-    } else { ?>
-        <script language="javascript">
-            alert("Incorrect Email address or password");
-        </script>
+        $estado = $obj->stt;
+        if ($estado == 1) {
+            if (password_verify($pass, $dato)) {
+                header("Status: 301 Moved Permanently");
+                header("Location: ../index.php");
+                exit;
+            } else {
+                $_SESSION['fails'] = $_SESSION['fails'] + 1;
+                if ($_SESSION['fails'] == 3) {
+                    echo '<script language="javascript">
+                    alert("Your account has been blocked");</script>';
+                }
+?>
+                <div class="error" id="alertdiv" role="alert"><b>Incorret email or password.</b></div>
+                <script language="javascript">
+                    window.setTimeout(function() {
+    $("alertdiv").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 5000);
+                </script>
 <?php
+
+            }
+        } else {
+            echo '<script language="javascript">
+            alert("User blocked");</script>';
+        }
+
+        // $hash = password_hash($dato, PASSWORD_DEFAULT);
+
+    } else {
+        echo '<script language="javascript">alert("Incorrect Email address");</script>';
     }
     pg_close();
 }
@@ -41,6 +60,7 @@ if (isset($_POST['submit'])) {
     <!-- google fonts-->
     <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/alert.css">
     <title>Login</title>
 </head>
 
@@ -51,20 +71,21 @@ if (isset($_POST['submit'])) {
             <img src="/resources/logo.png">
         </div>
         <h1>Login</h1>
-        <form action="login.php" method="POST">
+        <form action="<?php $_SERVER["PHP_SELF"]; ?>" method="POST">
             <div class=" w3l-form-group">
                 <label>Email:</label>
                 <div class="group">
                     <ion-icon name="person-circle-outline"></ion-icon>
-                    <input type="text" class="form-control" placeholder="ejemplo@mail.com" name="email" required="required" />
+                    <input type="email" class="form-control" placeholder="ejemplo@mail.com" name="email" required="required" aria-describedby="emailHelp" />
                 </div>
             </div>
             <div class=" w3l-form-group">
                 <label>Password:</label>
                 <div class="group">
                     <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input type="password" class="form-control" placeholder="Password" name="pass" required="required" />
+                    <input type="password" class="form-control" placeholder="Password" name="pass" required="required" aria-describedby="emailHelp" aria-describedby="passwordHelpBlock" />
                 </div>
+                <p id="passwordHelpBlock" class="w3l-register-p">Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números, y no debe contener espacios, caracteres especiales ni emoji.</p>
             </div>
             <div class="forgot">
                 <a href="#">Forgot Password?</a>

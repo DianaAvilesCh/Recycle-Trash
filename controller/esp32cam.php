@@ -7,10 +7,11 @@ if ($con) {
 
     echo "Conexion con base de datos exitosa! ";
 
-    $json = file_get_contents('php://input');
-    $data = json_decode($json);
-    echo "aqui llegue";
-    echo $data[0];
+    //$json = file_get_contents('php://input');
+    //$data = json_decode($json);
+    //echo "aqui llegue";
+    //echo $data[0];
+    echo file_get_contents('php://input');
     
 
 /*     if (isset($_POST['json'])) {

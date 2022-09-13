@@ -10,7 +10,7 @@ if ($con) {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
     echo "aqui llegue";
-    //echo $data['fotografias'];
+    echo $data['fotografias'];
     //echo file_get_contents('php://input');
     $data = $data['fotografias'];
 
@@ -30,6 +30,7 @@ if ($con) {
 
     <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
     <img id="img1" src="<?php echo $nomimg ?>"></img>
+    <!--<img id="img1" src="../capture/images09132022-081634.png"></img>-->
     <div id="results" />
 
     <!-- Place your code in the script tag below. You can also use an external .js file -->
@@ -45,7 +46,7 @@ if ($con) {
 
         img.onload = function() {
           console.log('Wait to load..');
-          Modelo10.load().then(model => {
+          mobilenet.load().then(model => {
             // Classify the image.
             model.classify(img).then(predictions => {
               for (i in predictions) {
@@ -57,7 +58,7 @@ if ($con) {
             });
           });
         }
-        img.src =<?php echo $nomimg ?>;
+        //img.src ="../capture/images09132022-081634.png";
       }
     </script>
 <?php

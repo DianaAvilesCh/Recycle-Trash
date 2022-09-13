@@ -10,7 +10,8 @@ if ($con) {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
     echo "aqui llegue";
-
+    //echo $data['fotografias'];
+    //echo file_get_contents('php://input');
     $data = $data['fotografias'];
 
     list($type, $data) = explode(';', $data);
@@ -44,7 +45,7 @@ if ($con) {
 
         img.onload = function() {
           console.log('Wait to load..');
-          mobilenet.load().then(model => {
+          Modelo10.load().then(model => {
             // Classify the image.
             model.classify(img).then(predictions => {
               for (i in predictions) {
@@ -56,13 +57,13 @@ if ($con) {
             });
           });
         }
-
+        img.src =<?php echo $nomimg ?>;
       }
     </script>
 <?php
-unlink("$nomimg");
+//unlink("$nomimg");
   }
-  unlink("../capture/images09132022-043241.png");
+  //unlink("../capture/images09132022-043241.png");
 } else {
   echo "Falla! conexion con Base de datos ";
 }

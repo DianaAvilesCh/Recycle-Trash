@@ -10,8 +10,7 @@ if ($con) {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
     echo "aqui llegue";
-    //echo $data['fotografias'];
-    //echo file_get_contents('php://input');
+
     $data = $data['fotografias'];
 
     list($type, $data) = explode(';', $data);

@@ -6,7 +6,7 @@ if ($con) {
 
 
   echo "Conexion con base de datos exitosa! ";
-  if (file_get_contents('php://input')) {
+ if (file_get_contents('php://input')) {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
     echo "aqui llegue";
@@ -21,7 +21,14 @@ if ($con) {
     $nomimg = "../capture/images$DateAndTime.png";
     file_put_contents($nomimg, $data);
 
+    $sql = "INSERT INTO capture(url) VALUES ('$nomimg');";
+    $resultado = pg_query($con, $sql);
+    if ($resultado) {
+      echo 'si guarde';
+    }
 
+    //DE AQUI
+/*
 ?>
     <!-- Load TensorFlow.js. This is required to use MobileNet. -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1"> </script>
@@ -30,7 +37,7 @@ if ($con) {
 
     <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
     <img id="img1" src="<?php echo $nomimg ?>"></img>
-    <!--<img id="img1" src="../capture/images09132022-081634.png"></img>-->
+    <!--<img id="img1" src="../capture/images09132022-064557.png"></img>-->
     <div id="results" />
 
     <!-- Place your code in the script tag below. You can also use an external .js file -->
@@ -43,18 +50,25 @@ if ($con) {
 
         r.innerHTML = '';
         console.log("Classify...");
-
+        var n = 0;
+        var clase = '';
         img.onload = function() {
           console.log('Wait to load..');
           mobilenet.load().then(model => {
             // Classify the image.
             model.classify(img).then(predictions => {
               for (i in predictions) {
-                r.innerHTML = r.innerHTML + '<b>' + predictions[i].className + "</b> - " + predictions[i].probability + "<br/>";
+                n = predictions[0].probability;
+                clase= predictions[0].className;
+                if(predictions[i].probability > n)
+                {
+                  n=predictions[i].probability;
+                  clase = predictions[i].className;
+                }
                 img.onload = null;
                 img.src = 'esp32cam.php';
               }
-
+              r.innerHTML = r.innerHTML + '<b>' + clase + "</b> - " + n + "<br/>";
             });
           });
         }
@@ -62,6 +76,7 @@ if ($con) {
       }
     </script>
 <?php
+*/ //HASTA AQUI
 //unlink("$nomimg");
   }
   //unlink("../capture/images09132022-043241.png");

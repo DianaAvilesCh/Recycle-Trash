@@ -10,7 +10,7 @@ if ($con) {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
     echo "aqui llegue";
-    echo $data['fotografias'];
+    //echo $data['fotografias'];
     //echo file_get_contents('php://input');
     $data = $data['fotografias'];
 
@@ -22,7 +22,9 @@ if ($con) {
     file_put_contents($nomimg, $data);
 
     $sql = "INSERT INTO capture(url) VALUES ('$nomimg');";
+echo $sql;
     $resultado = pg_query($con, $sql);
+    echo $resultado;
     if ($resultado) {
       echo 'si guarde';
     }

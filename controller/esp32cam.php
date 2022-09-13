@@ -21,14 +21,7 @@ if ($con) {
     $nomimg = "../capture/images$DateAndTime.png";
     file_put_contents($nomimg, $data);
 
-    $sql = "INSERT INTO public.capture(url)
-      VALUES ('$nomimg');";
-    echo $sql;
-    $resultado = pg_query($con, $sql);
-    echo $resultado;
-    if ($resultado) {
-      echo 'si guarde';
-    }
+    echo $nomimg;
 
     //DE AQUI
 /*

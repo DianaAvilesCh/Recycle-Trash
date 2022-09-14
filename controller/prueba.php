@@ -45,6 +45,8 @@
           });
         }
       }
+      //unlink("$nomimg");
+        //unlink("../capture/images09132022-043241.png");
     </script>
 <?php
 

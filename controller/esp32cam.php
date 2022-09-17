@@ -55,7 +55,7 @@ if ($con) {
             }
             CATEGORY_DETECTED = category[max_val_index]
             output.innerHTML = CATEGORY_DETECTED;
-            <?php echo"Falla! conexion con Base de datos ";?>
+            <?php echo "<script>CATEGORY_DETECTED</script>";?>
             })
       }
       init();

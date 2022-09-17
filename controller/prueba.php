@@ -3,18 +3,14 @@
 echo "Conexion con base de datos exitosa! ";
 
 ?>
-<!-- Load TensorFlow.js. This is required to use MobileNet. -->
+<!-- Load TensorFlow.js.-->
 </br>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.20.0/dist/tf.min.js"></script>
-<!--<script src="nose.js"></script>-->
-
-<!-- Load the MobileNet model. -->
 
 <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
 <img id="img1" crossorigin='anonymous' src="../capture/images09132022-085916.png"></img>
 <div id="results" />
 
-<!-- Place your code in the script tag below. You can also use an external .js file -->
 <script>
   async function init() {
 
@@ -26,7 +22,6 @@ echo "Conexion con base de datos exitosa! ";
 
     input = document.getElementById("img1");
     const tensor = await tf.browser.fromPixels(input).resizeNearestNeighbor([256,256]).toFloat()
-    //chop = [1,256,256,3];
     pred = model.predict(tf.reshape(tensor, [1, 256, 256, 3]))
     pred.print()
     console.log("End of predict function")

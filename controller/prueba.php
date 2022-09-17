@@ -1,53 +1,57 @@
 <?php
 
-  echo "Conexion con base de datos exitosa! ";
+echo "Conexion con base de datos exitosa! ";
 
 ?>
-    <!-- Load TensorFlow.js. This is required to use MobileNet. -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1"> </script>
-    <script src="../Modelo/model2.json"> </script>
-    <!-- Load the MobileNet model. -->
+<!-- Load TensorFlow.js. This is required to use MobileNet. -->
+</br>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.20.0/dist/tf.min.js"></script>
+<!--<script src="nose.js"></script>-->
 
-    <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
-    <img id="img1" src="../capture/images09132022-085916.png"></img>
-    <div id="results" />
+<!-- Load the MobileNet model. -->
 
-    <!-- Place your code in the script tag below. You can also use an external .js file -->
-    <script>
-      classifyImg();
+<!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
+<img id="img1" crossorigin='anonymous' src="../capture/images09132022-085916.png"></img>
+<div id="results" />
 
-      function classifyImg() {
-        const img = document.getElementById('img1');
-        const r = document.getElementById('results');
+<!-- Place your code in the script tag below. You can also use an external .js file -->
+<script>
+  async function init() {
 
-        r.innerHTML = '';
-        console.log("Classify...");
-        var n = 0;
-        var clase = '';
-        img.onload = function() {
-          console.log('Wait to load..');
-          model2.json.load().then(model => {
-            // Classify the image.
-            model.classify(img).then(predictions => {
-              for (i in predictions) {
-                n = predictions[0].probability;
-                clase= predictions[0].className;
-                if(predictions[i].probability > n)
-                {
-                  n=predictions[i].probability;
-                  clase = predictions[i].className;
-                }
-                img.onload = null;
-                img.src = 'esp32cam.php';
-              }
-              r.innerHTML = r.innerHTML + '<b>' + clase + "</b> - " + n + "<br/>";
-            });
-          });
+    //model =  await tf.loadModel('indexeddb://my-model-1');
+    model = await tf.loadGraphModel('../Model/model.json');
+
+    //model =  await tf.loadModel('tfjsversion/model.json');
+    console.log('model loaded from storage');
+
+    input = document.getElementById("img1");
+    const tensor = await tf.browser.fromPixels(input).resizeNearestNeighbor([256,256]).toFloat()
+    //chop = [1,256,256,3];
+    pred = model.predict(tf.reshape(tensor, [1, 256, 256, 3]))
+    pred.print()
+    console.log("End of predict function")
+    //This array is encoded with index i = corresponding emotion. In dataset, 0 = Angry, 1 = Disgust, 2 = Fear, 3 = Happy, 4 = Sad, 5 = Surprise and 6 = Neutral
+    category = ['cardboard', 'glass', 'metal', 'paper', 'plastic', 'trash']
+    //At which index in tensor we get the largest value ?
+    pred.data()
+      .then((data) => {
+        console.log(data)
+        output = document.getElementById("results")
+        output.innerHTML = ""
+        max_val = -1
+        max_val_index = -1
+        for (let i = 0; i < data.length; i++) {
+          if (data[i] > max_val) {
+            max_val = data[i]
+            max_val_index = i
+          }
         }
-      }
-      //unlink("$nomimg");
-        //unlink("../capture/images09132022-043241.png");
-    </script>
+        CATEGORY_DETECTED = category[max_val_index]
+        output.innerHTML = CATEGORY_DETECTED;
+        })
+  }
+  init();
+</script>
 <?php
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 include 'conexion.php';
 if ($con) {
-  //if post of arduino
+ //if post of arduino
  if (file_get_contents('php://input')) {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
@@ -13,6 +13,7 @@ if ($con) {
     $DateAndTime = (string) date('mdY-his', time());
     $nomimg = "../capture/images$DateAndTime.png";
     file_put_contents($nomimg, $data);
+    //$nomimg = "../capture/images09142022-071430.png";
 
     ?>
     <!-- Load TensorFlow.js.-->
@@ -20,10 +21,12 @@ if ($con) {
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.20.0/dist/tf.min.js"></script>
     
     <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
-    <img id="img1" crossorigin='anonymous' src="<?php $nomimg?>"></img>
+    <img id="img1" crossorigin='anonymous' src="<?php echo $nomimg?>"></img>
     <div id="results" />
     
     <script>
+      init();
+
       async function init() {
     
         //model =  await tf.loadModel('indexeddb://my-model-1');
@@ -55,10 +58,11 @@ if ($con) {
             }
             CATEGORY_DETECTED = category[max_val_index]
             output.innerHTML = CATEGORY_DETECTED;
-            <?php echo "<script>CATEGORY_DETECTED</script>";?>
+            const cont = output.innerHTML;
+            window.location.assign("./d1.php?id="+cont)
             })
       }
-      init();
+      
     </script>
     <?php
 

@@ -1,8 +1,17 @@
 <?php
 include 'conexion.php';
 if ($con) {
+  //if get
+  if (isset($_GET['predit'])) {
+    $predit = $_GET['predit'];
+    $sql = "UPDATE capture SET state='$predit';";
+    $resultado = pg_query($con, $sql);
+    if ($resultado) {
+      echo "CORRECTO";
+    }
+  }
  //if post of arduino
- if (file_get_contents('php://input')) {
+  if (file_get_contents('php://input')) {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
     $data = $data['fotografias'];
@@ -12,8 +21,8 @@ if ($con) {
     $data = base64_decode($data);
     $DateAndTime = (string) date('mdY-his', time());
     $nomimg = "../capture/images$DateAndTime.png";
-    file_put_contents($nomimg, $data);
-    //$nomimg = "../capture/images09142022-071430.png";
+    file_put_contents($nomimg, $data); 
+    $nomimg = "../capture/images09142022-071619.png";
 
     ?>
     <!-- Load TensorFlow.js.-->
@@ -25,6 +34,7 @@ if ($con) {
     <div id="results" />
     
     <script>
+
       init();
 
       async function init() {
@@ -59,14 +69,16 @@ if ($con) {
             CATEGORY_DETECTED = category[max_val_index]
             output.innerHTML = CATEGORY_DETECTED;
             const cont = output.innerHTML;
-            window.location.assign("./d1.php?id="+cont)
+            window.location.assign("esp32cam.php?predit="+cont)
             })
       }
-      
+      function newDoc(dato) {
+  //window.location.assign("esp32cam.php?variable=")
+}
     </script>
     <?php
 
-  }//fin del if post
+}//fin del if post
 
 } else {//else de si falla conexion
   echo "Falla! conexion con Base de datos ";

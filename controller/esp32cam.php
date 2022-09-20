@@ -22,7 +22,7 @@ if ($con) {
     $DateAndTime = (string) date('mdY-his', time());
     $nomimg = "../capture/images$DateAndTime.png";
     file_put_contents($nomimg, $data); 
-    $nomimg = "../capture/images09142022-071619.png";
+    //$nomimg = "../capture/images09142022-071619.png";
 
     ?>
     <!-- Load TensorFlow.js.-->

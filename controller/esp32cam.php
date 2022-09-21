@@ -17,7 +17,5 @@ include 'conexion.php';
     $consulta = "INSERT INTO image(url) VALUES ('$nomimg');";
     $resultado = pg_query($con, $consulta);
    //$nomimg = "../capture/images09142022-071619.png";
-   header("Location: https://recycle-trash.herokuapp.com/controller/prediction.php?image=$nomimg");
-   exit();
    }
 ?>

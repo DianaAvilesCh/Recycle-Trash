@@ -17,5 +17,5 @@ include 'conexion.php';
     $consulta = "UPDATE image SET url = '$nomimg';";
     $resultado = pg_query($con, $consulta);
    //$nomimg = "../capture/images09142022-071619.png";
-   }
+    }
 ?>

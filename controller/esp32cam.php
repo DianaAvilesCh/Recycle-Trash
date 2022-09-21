@@ -14,17 +14,9 @@
    //$nomimg = "../capture/images09142022-071619.png";
    }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-</head>
-<body>
 <script type="text/javascript">
   postimg('<?php echo $nomimg?>');
     function postimg(img){
       window.location.href ="prediction.php?image=" + img;
     }
 </script>
-</body>
-</html>

@@ -11,7 +11,6 @@ if ($con) {
    //     echo "CORRECTO";
     //  }
     }
-echo 'nada';
   $sql = "SELECT url FROM image limit 1;";
   $resultado = pg_query($con, $sql);
   if (pg_num_rows($resultado)) {

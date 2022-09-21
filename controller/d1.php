@@ -1,5 +1,6 @@
 <?php
 include('./conexion.php');
+include('./prediction.php');
 
 $dato = "";
 $sql = "SELECT state FROM capture";

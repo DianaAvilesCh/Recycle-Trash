@@ -14,7 +14,7 @@ include 'conexion.php';
     $nomimg = "../capture/images$DateAndTime.png";
     file_put_contents($nomimg, $data);  
     
-    $consulta = "INSERT INTO image(url) VALUES ('$nomimg');";
+    $consulta = "UPDATE image SET url = '$nomimg';";
     $resultado = pg_query($con, $consulta);
    //$nomimg = "../capture/images09142022-071619.png";
    }

@@ -32,9 +32,9 @@ if ($con) {
             $d3=45;
         }
 
-        $dp1 =((45-$d1)/45)*100;
-        $dp2 =((45-$d2)/45)*100;
-        $dp3 =((45-$d3)/45)*100;
+        $dp1 =(int)(((45-$d1)/45)*100);
+        $dp2 =(int)(((45-$d2)/45)*100);
+        $dp3 =(int)(((45-$d3)/45)*100);
         
         $c=[];
         //Select id from container_garbage where id_container = 1

@@ -41,13 +41,14 @@ if ($con) {
         $consulta = "SELECT id FROM container_garbage where id_container = $d4";
         $resultado = pg_query($con, $consulta);
         if (pg_num_rows($resultado)) {
+
             while ($obj = pg_fetch_object($resultado)) {
-                array_push($c,$obj['id']);
+                array_push($c, $obj->id);
             }
         }
             $consulta = "INSERT INTO state(state_id_garbage,destance,date,destance_porce) 
-                VALUES ('$c[1]','$d1','$fecha_actual','$dp1'),('$c[2]','$d2','$fecha_actual','$dp2'),
-                ('$c[3]','$d3','$fecha_actual','$dp3');";
+                VALUES ('$c[0]','$d1','$fecha_actual','$dp1'),('$c[1]','$d2','$fecha_actual','$dp2'),
+                ('$c[2]','$d3','$fecha_actual','$dp3');";
                 $resultado = pg_query($con, $consulta);
                 $result = print_r($resultado, true);
                 echo "\n" . $consulta;

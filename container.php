@@ -7,24 +7,30 @@ if (isset($_POST['Saver'])) {
     $name = $_POST['name'];
     $dname = $_POST['addressC'];
     $garba = $_POST['garbage'];
-    echo 'llege aqui';
-    $sql = "call new_container(null,'$dname','$name');";
-    
-    $resultado = pg_query($con, $sql);
-    if ($resultado) {
-        foreach ($garba as $garbagelist) {
-            $sql2 = "call new_container_garbage('$resultado','$garbagelist');";
-            $resultado2 = pg_query($con, $sql2);
-            if ($resultado2) {
-                header("Location: ../container.php");
-            } else {
-                echo '<script language="javascript">
-                    alert("Error en crear");</script>';
+    $i = 0;
+    foreach ($garba as $garbalist) {
+        $i++;
+    }
+    if ($i >= 3) {
+        $sql = "call new_container(null,$1,$2);";
+        pg_prepare($con, "my_query", $sql);
+        $resul = pg_execute($con, "my_query", array("$dname", "$name"));
+        $cont_entry = pg_fetch_array($resul)[0];
+        if ($cont_entry != null) {
+            foreach ($garba as $garbalist) {
+                $sql = "SELECT new_container_garbage('$cont_entry','$garbalist');";
+                $resultado = pg_query($con, $sql);
             }
+            if ($resultado) {
+                header("Location: ../container.php");
+                exit;
+            } else {
+                echo 'There was a problem with the registry';
+            }
+        } else {
+            echo 'There was a problem with the registry';
         }
-        exit;
     } else {
-        echo 'incorrecto';
     }
     pg_close();
 }
@@ -56,7 +62,7 @@ if (isset($_POST['Saver'])) {
 
         <!-- Modal -->
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal hide" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -72,7 +78,7 @@ if (isset($_POST['Saver'])) {
                                     <div class="cold-md-3">
                                         <div class="form-group">
                                             <label for="InputName">Name Container</label>
-                                            <input id="name" name="name" type="text" class="form-control" placeholder="Container Name"  required="required" />
+                                            <input id="name" name="name" type="text" class="form-control" placeholder="Container Name" required="required" />
                                         </div>
                                         <div class="form-group">
                                             <label for="InputAddress">Address</label>
@@ -81,7 +87,7 @@ if (isset($_POST['Saver'])) {
                                     </div>
                                     <div class="cold-md-6">
                                         <label for="InputGarbage">Select type of waste</label>
-                                        <select name="garbage[]" class="form-control mb-3 multiple-select" style="width: 100%" multiple require>
+                                        <select name="garbage[]" class="form-control mb-3 multiple-select" style="width: 100%" multiple required="required">
                                             <?php
                                             if ($con) {
                                                 $consulta = "SELECT garbage.id,garbage.description from garbage";
@@ -105,7 +111,7 @@ if (isset($_POST['Saver'])) {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="Save" name="Saver" value="Register" class="btn btn-primary">Save changes</button>
+                            <button type="Save" name="Saver" id="guardar" value="Register" onclick="validarList()" class="btn btn-primary">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -144,6 +150,13 @@ if (isset($_POST['Saver'])) {
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $('.multiple-select').select2();
+    </script>
+    <script>
+        function validarList() {
+            var message = $('garbage').val();
+            99999
+        }
+        $(".modalShow").modal("hide");
     </script>
 </body>
 

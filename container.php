@@ -30,8 +30,7 @@ if (isset($_POST['Saver'])) {
         } else {
             echo 'There was a problem with the registry';
         }
-    } else {
-    }
+    } 
     pg_close();
 }
 ?>
@@ -82,12 +81,12 @@ if (isset($_POST['Saver'])) {
                                         </div>
                                         <div class="form-group">
                                             <label for="InputAddress">Address</label>
-                                            <input type="text" class="form-control" name="addressC" placeholder="Address">
+                                            <input type="text" id="addressC" class="form-control" name="addressC" placeholder="Address">
                                         </div>
                                     </div>
                                     <div class="cold-md-6">
-                                        <label for="InputGarbage">Select type of waste</label>
-                                        <select name="garbage[]" class="form-control mb-3 multiple-select" style="width: 100%" multiple required="required">
+                                        <label for="InputGarbage">Select 3 types of waste</label>
+                                        <select id="resul" name="garbage[]" class="form-control mb-3 multiple-select" style="width: 100%;" multiple required="required">
                                             <?php
                                             if ($con) {
                                                 $consulta = "SELECT garbage.id,garbage.description from garbage";
@@ -110,8 +109,8 @@ if (isset($_POST['Saver'])) {
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="Save" name="Saver" id="guardar" value="Register" onclick="validarList()" class="btn btn-primary">Save changes</button>
+                            <button type="button" name="cancel" class="Cancel btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="Save" name="Saver" id="guardar" disabled="false" value="Register" class="Register btn btn-primary">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -152,11 +151,42 @@ if (isset($_POST['Saver'])) {
         $('.multiple-select').select2();
     </script>
     <script>
-        function validarList() {
-            var message = $('garbage').val();
-            99999
-        }
-        $(".modalShow").modal("hide");
+        $('.Cancel').click(function() {
+            document.getElementById("name").value = "";
+            document.getElementById("addressC").value = "";
+            var sel = document.getElementById("resul");
+            sel.remove(sel.selectedIndex);
+            location.reload(true);
+        });
+    </script>
+    <script>
+        let button = document.querySelector(".Register");
+        const trash = []
+        $('.multiple-select').select2({
+            placeholder: {
+                id: '-1', // the value of the option
+                text: 'Select multiple option'
+            }
+        });
+        $('.multiple-select').on('select2:select', function(e) {
+            placeholder: 'This is my placeholder';
+
+            trash.push(e.params.data.text);
+            if (trash.length >= 3) {
+                button.disabled = false;
+            } else {
+                button.disabled = true;
+            }
+        });
+        $('.multiple-select').on('select2:unselect', function(e) {
+            trash.pop()
+            console.log(trash.length)
+            if (trash.length >= 3) {
+                button.disabled = false;
+            } else {
+                button.disabled = true;
+            }
+        });
     </script>
 </body>
 

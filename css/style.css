@@ -98,3 +98,10 @@ body {
 .container .Glass {
     background: linear-gradient(0deg, #7cfa82, #7af1a2, #7cfa82);
 }
+
+.back{
+    text-align: justify;
+    position: absolute;
+    bottom: 83%;
+    right: 2%;
+}

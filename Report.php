@@ -21,36 +21,42 @@ echo '</br>';
 </head>
 
 <body>
-<div style="margin: 2%;">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">TACHO</th>
-                <th scope="col">DISTANCIA</th>
-                <th scope="col">FECHA</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if ($con) {
-                $consulta = "SELECT * FROM state";
-                $resultado = pg_query($con, $consulta);
-                if (pg_num_rows($resultado)) {
-                    while ($obj = pg_fetch_object($resultado)) { ?>
-                        <tr>
-                            <td><?php echo $obj->id ?></td>
-                            <td><?php echo $obj->state_id_garbage ?></td>
-                            <td><?php echo $obj->destance ?></td>
-                            <td><?php echo $obj->date ?></td>
-                        </tr>
-            <?php }
+    <div style="margin: 2%;">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Name Container</th>
+                    <th scope="col">Name Garbage</th>
+                    <th scope="col">Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($con) {
+                    $consulta = "SELECT st.date,con.name_container, gar.description as name_garbage,
+                    sum(st.destance_porce)/count(all st.date) as porcentaje from state st INNER join
+                    container_garbage cg on cg.id = st.state_id_garbage INNER join
+                    container con on con.id = cg.id_container INNER join
+                    garbage gar on gar.id = cg.id_garbage
+				    group by st.date,con.id, gar.id
+				    ORDER by st.date,con.id, gar.id";
+                    $resultado = pg_query($con, $consulta);
+                    if (pg_num_rows($resultado)) {
+                        while ($obj = pg_fetch_object($resultado)) { ?>
+                            <tr>
+                                <td><?php echo $obj->date ?></td>
+                                <td><?php echo $obj->name_container ?></td>
+                                <td><?php echo $obj->name_garbage ?></td>
+                                <td><?php echo $obj->porcentaje ?>%</td>
+                            </tr>
+                <?php }
+                    }
                 }
-            }
-            pg_close();
-            ?>
-        </tbody>
-    </table>
+                pg_close();
+                ?>
+            </tbody>
+        </table>
     </div>
 </body>
 

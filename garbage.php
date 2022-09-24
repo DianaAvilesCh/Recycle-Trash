@@ -34,16 +34,15 @@ if (isset($_GET['id'])) {
                         <div class="card <?php echo $obj->description ?>">
                             <div class="box">
                                 <div class="circle-wrap">
-                                    <div role="progressbar" aria-valuenow="<?php echo $obj->destance_porce?>"
-                                     aria-valuemin="0" aria-valuemax="100" style="--value:<?php echo $obj->destance_porce?>">
+                                    <div role="progressbar" aria-valuenow="<?php echo $obj->destance_porce ?>" aria-valuemin="0" aria-valuemax="100" style="--value:<?php echo $obj->destance_porce ?>">
                                     </div>
                                 </div>
                                 <h2 class="text"><?php echo $obj->description ?></h2>
                             </div>
                         </div>
             <?php }
-                }else{
-                    echo '</br><h1>No hay información</h1>';
+                } else {
+                    header("Location: ../NotRegister.php");
                 }
             }
             ?>

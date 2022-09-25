@@ -110,7 +110,7 @@ if (isset($_POST['Saver'])) {
                         </div>
                         <div class="modal-footer">
                             <button type="button" name="cancel" class="Cancel btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="Save" name="Saver" id="guardar" disabled="false" value="Register" class="Register btn btn-primary">Save changes</button>
+                            <button type="button" name="Saver" id="guardar" disabled="false" value="Register" class="Register btn btn-primary">Save changes</button>
                         </div>
                     </form>
                 </div>

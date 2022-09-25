@@ -1,6 +1,6 @@
 <?php
 include 'sidebar.html';
-include('./controller/conexion.php');
+include('../controller/conexion.php');
 echo '</br>';
 echo '</br>';
 if (isset($_GET['id'])) {
@@ -16,11 +16,17 @@ if (isset($_GET['id'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- CSS only -->
         <link rel="stylesheet" href="/css/style.css">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <title>Garbage</title>
     </head>
 
     <body>
+        <div>
+            <a href="javascript: history.go(-1)" type="button" class="back btn btn-light">
+                <i class="bi bi-arrow-left-circle"></i>
+                Go back
+            </a>
+        </div>
         <div class="container">
             <?php
             if ($con) {

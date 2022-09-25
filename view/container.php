@@ -1,6 +1,6 @@
 <?php
 include 'sidebar.html';
-include('./controller/conexion.php');
+include('../controller/conexion.php');
 echo '</br>';
 echo '</br>';
 if (isset($_POST['Saver'])) {
@@ -127,11 +127,11 @@ if (isset($_POST['Saver'])) {
                     while ($obj = pg_fetch_object($resultado)) { ?>
                         <div class="col">
                             <div class="card" style="padding: 8px;">
-                                <img src="/resources/jateastiat_iso-1140x641.png" class="card-img-top" alt="...">
+                                <img src="../resources/jateastiat_iso-1140x641.png" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $obj->name_container ?></h5>
                                     <p class="card-text"><?php echo $obj->address ?></p>
-                                    <a href="/garbage.php/?id=<?php echo $obj->id ?>" class="btn btn-primary">View</a>
+                                    <a href="/view/garbage.php/?id=<?php echo $obj->id ?>" class="btn btn-primary">View</a>
                                 </div>
                             </div>
                         </div>

@@ -1,11 +1,11 @@
 <?php
-require ('./fpdf/fpdf.php');
+require ('../fpdf/fpdf.php');
 class PDF extends FPDF{
 
     function Header()
     {
-        $this->Image('./resources/logo.png',10,8,22);
-        $this->Image('./resources/logo.png',178,8,22);
+        $this->Image('../resources/logo.png',10,8,22);
+        $this->Image('../resources/logo.png',178,8,22);
         $this->SetFont('Arial','B',15);
         $this->SetTextColor(60, 60, 60);
         $this->SetX(50);
@@ -37,7 +37,7 @@ class PDF extends FPDF{
     $pdf->Cell(35,9,'Type of waste',0,0,'C',1);
     $pdf->Cell(32,9,'Percentage',0,1,'C',1);
 
-    include('./controller/conexion.php');
+    include('../controller/conexion.php');
     if ($con) {
         $consulta = "SELECT st.date,con.name_container, gar.description as name_garbage,
         (sum(st.destance_porce)/count(all st.date)||'%') AS porcentaje from state st INNER join

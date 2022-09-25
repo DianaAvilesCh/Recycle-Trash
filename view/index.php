@@ -1,6 +1,5 @@
 <?php
-include 'sidebar.html';
-include('./controller/conexion.php');
+include ('sidebar.html');
 echo '</br>';
 echo '</br>';
 ?>
@@ -17,7 +16,7 @@ echo '</br>';
 </head>
 <body>
     <div style="margin: 2%; justify-content: center;Position: relative;display: flex;">
-    <img src="/resources/zz11b-02-1024x748.png" class="img-fluid" style="width: 50%; ">
+    <img src="../resources/zz11b-02-1024x748.png" class="img-fluid" style="width: 50%; ">
     </div>
 </body>
 </html>

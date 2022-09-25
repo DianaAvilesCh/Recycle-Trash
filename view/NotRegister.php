@@ -1,6 +1,6 @@
 <?php
 include 'sidebar.html';
-include('./controller/conexion.php');
+include('../controller/conexion.php');
 echo '</br>';
 echo '</br>';
 echo '</br>';

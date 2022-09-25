@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <!--icons-->
+   <link rel="stylesheet" href="./css/alert.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+
+   <title>Login</title>
+</head>
+
+<body>
+   <div class="alert warning hide" id="warning">
+      <span class="fas fa-exclamation-circle p-w"></span>
+      <span class="msg p-w"></span>
+      <div class="close-btn p-w">
+         <span class="fas fa-times s-w"></span>
+      </div>
+   </div>
+   <div class="alert info hide" id="info">
+      <span class="fas fa-exclamation-circle p-i"></span>
+      <span class="msg p-i"></span>
+      <div class="close-btn p-i">
+         <span class="fas fa-times s-i"></span>
+      </div>
+   </div>
+   <div class="alert danger hide" id="danger">
+      <span class="fas fa-exclamation-circle p-d"></span>
+      <span class="msg p-d"></span>
+      <div class="close-btn p-d">
+         <span class="fas fa-times s-d"></span>
+      </div>
+   </div>
+   <div class="alert success hide" id="success">
+      <span class="fas fa-exclamation-circle p-s"></span>
+      <span class="msg p-s"></span>
+      <div class="close-btn p-s">
+         <span class="fas fa-times s-s"></span>
+      </div>
+   </div>
+   <script>
+      function initAlert(val, dato) {
+         $(val).addClass("show");
+         $(val).removeClass("hide");
+         $(val).addClass("showAlert");
+         $('.msg').append(dato);
+         setTimeout(function () {
+            $(val).removeClass("show");
+            $(val).addClass("hide");
+         }, 5000);
+      };
+      $('.close-btn').click(function () {
+         $('.alert').removeClass("show");
+         $('.alert').addClass("hide");
+      });
+   </script>
+</body>
+
+</html>

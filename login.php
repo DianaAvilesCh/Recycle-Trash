@@ -1,5 +1,8 @@
+
 <?php
 include('./controller/conexion.php');
+include 'alerts.html';
+session_start();
 // si esta definida sera igual a intentos en caso contrario sera 0
 $_SESSION["fails"] = isset($_SESSION["fails"]) ? $_SESSION["fails"] : 0;
 if (isset($_POST['submit'])) {
@@ -21,23 +24,17 @@ if (isset($_POST['submit'])) {
                 $_SESSION['fails'] = $_SESSION['fails'] + 1;
                 if ($_SESSION['fails'] == 3) {
                     echo '<script language="javascript">
-                    alert("Your account has been blocked");</script>';
+                    initAlert(warning,"Warning: Your account has been blocked");</script>';
                 }
-?>
-                <div class="error" id="alertdiv" role="alert"><b>Incorret email or password.</b></div>
-                <script language="javascript">
-                    window.setTimeout(function() {
-    $("alertdiv").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove(); 
-    });
-}, 5000);
-                </script>
-<?php
-
+                else{
+                    echo '<script language="javascript">
+                    initAlert(warning,"Warning: Incorret email or password.");
+                    console.log(',$_SESSION['fails'],');</script>';
+                }
             }
         } else {
             echo '<script language="javascript">
-            alert("User blocked");</script>';
+                    initAlert(warning,"Warning: User blocked");</script>';
         }
 
         // $hash = password_hash($dato, PASSWORD_DEFAULT);
@@ -56,16 +53,18 @@ if (isset($_POST['submit'])) {
     <!--icons-->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
     <!-- google fonts-->
     <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/alert.css">
+    
+
     <title>Login</title>
 </head>
 
 <body>
     </br>
+
     <div class=" w3l-login-form">
         <div class="img-logo">
             <img src="/resources/logo.png">
@@ -85,7 +84,7 @@ if (isset($_POST['submit'])) {
                     <ion-icon name="lock-closed-outline"></ion-icon>
                     <input type="password" class="form-control" placeholder="Password" name="pass" required="required" aria-describedby="emailHelp" aria-describedby="passwordHelpBlock" />
                 </div>
-                <p id="passwordHelpBlock" class="w3l-register-p">Su contraseña debe tener entre 8 y 20 caracteres, contener letras y números, y no debe contener espacios, caracteres especiales ni emoji.</p>
+                <p id="passwordHelpBlock" class="w3l-register-p">Your password must be between 8 and 20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.</p>
             </div>
             <div class="forgot">
                 <a href="#">Forgot Password?</a>

@@ -1,5 +1,5 @@
 <?php
-require ('../fpdf/fpdf.php');
+require ('../resources/fpdf/fpdf.php');
 class PDF extends FPDF{
 
     function Header()

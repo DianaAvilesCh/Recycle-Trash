@@ -19,11 +19,13 @@ $cuerpo = '
 $headers = "From: noreply@example.com"."\r\n"; 
 $headers .= "Reply-To: noreply@example.com"."\r\n"; 
 $headers .= "X-Mailer: PHP/".phpversion(); 
-$mail = @mail($destinatario,$asunto,$cuerpo,$headers);
+$mail = mail($destinatario,$asunto,$cuerpo,$headers);
 if($mail){
 echo "SI FUE";
+echo '<script>alert("por favor revise su correo para verificar");</script>';
+//echo '<script>setTimeout("location.href="index.php"\");</script>';
 }
 else{
-    echo"no fue";
+    echo"correo no fue enviado";
 }
 ?>

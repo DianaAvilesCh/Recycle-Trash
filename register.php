@@ -9,14 +9,16 @@ if (isset($_POST['submit'])) {
     $phash = password_hash($pass, PASSWORD_DEFAULT);
     $sql = "SELECT public.insert_person('$email','$phash','$fname','$lname');";
     $resultado = pg_query($con, $sql);
-    if ($resultado) {
-        header("Status: 301 Moved Permanently");
-        header("Location: ../login.php");
-        exit;
+     if ($resultado) {
+        /* header("Status: 301 Moved Permanently");
+        header("Location: ../index.php");
+        exit; */
+        echo "hola que ahce";
     } else {
-        echo '<script language="javascript">
-                    initAlert(danger,"Error: An error has occurred, please try again!");</script>';
-    }
+        echo "no fui xd";
+        //echo '<script language="javascript">
+          //          initAlert(danger,"Error: An error has occurred, please try again!");</script>';
+    } 
     pg_close();
 }
 ?>

@@ -220,9 +220,6 @@ footer {
     p.copyright-agileinfo {
         line-height: 1.8em;
     }
-    p.w3l-register-p{
-        font-size: 8px;
-    }
 }
 
 @media(max-width:414px) {

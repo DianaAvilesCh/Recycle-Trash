@@ -1,7 +1,6 @@
-
 <?php
 include('./controller/conexion.php');
-//include 'alerts.html';
+include 'alerts.html';
 session_start();
 
 // si esta definida sera igual a intentos en caso contrario sera 0
@@ -12,6 +11,7 @@ if (isset($_POST['submit'])) {
 
     $sql = "SELECT * FROM select_login('$email');";
     $resultado = pg_query($con, $sql);
+    echo $resultado;
     if (pg_num_rows($resultado)) {
         $obj = pg_fetch_object($resultado);
         $dato = $obj->pass;
@@ -45,7 +45,8 @@ if (isset($_POST['submit'])) {
         // $hash = password_hash($dato, PASSWORD_DEFAULT);
 
     } else {
-        echo '<script language="javascript">alert("Incorrect Email address");</script>';
+        echo '<script language="javascript">
+                    initAlert(warning,"Warning: Incorret email or password.");</script>';
     }
     pg_close();
 }

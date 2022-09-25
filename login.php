@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
             if (password_verify($pass, $dato)) {
                 //$_SESSION["newsession"]=""
                 header("Status: 301 Moved Permanently");
-                header("Location: ../view/index.php");
+                header("Location: ../index.php");
                 exit;
             } else {
                 $_SESSION['fails'] = $_SESSION['fails'] + 1;

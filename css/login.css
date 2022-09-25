@@ -5,20 +5,21 @@ body {
     min-height: 100vh;
     background-size: cover;
     font-family: 'Raleway', sans-serif;
+    overflow: scroll;
 }
 
 .img-logo{
 text-align: center;
 }
 img{
-    width: 45%;
+    width: 30%;
 }
 
 h1 {
     margin: 0;
     color: #ffffff;
     text-align: center;
-    font-size: 45px;
+    font-size: 40px;
     font-weight: 500;
     letter-spacing: 2px;
     padding: 10px 0;
@@ -38,12 +39,12 @@ p.w3l-register-p {
     color: #eee;
     font-size: 13px;
     text-align: center;
-    margin-top: 2em;
+    margin-top: 1em;
 }
 
 .w3l-login-form {
     background: rgba(0, 0, 0, 0.4117647058823529);
-    max-width: 500px;
+    max-width: 35%;
     margin: 0 auto;
     padding: 3em;
     border-radius: 10px;
@@ -170,13 +171,13 @@ footer {
 
 @media(max-width:768px) {
     h1 {
-        font-size: 47px;
+        font-size: 30px;
     }
 }
 
 @media(max-width:667px) {
     h1 {
-        font-size: 45px;
+        font-size: 25px;
     }
 }
 

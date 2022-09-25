@@ -1,7 +1,7 @@
 
 <?php
 include('./controller/conexion.php');
-include 'alerts.html';
+//include 'alerts.html';
 session_start();
 
 // si esta definida sera igual a intentos en caso contrario sera 0
@@ -62,11 +62,9 @@ if (isset($_POST['submit'])) {
     <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/alert.css">
-    
 
     <title>Login</title>
 </head>
-
 <body>
     </br>
 

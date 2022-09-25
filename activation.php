@@ -16,14 +16,11 @@ $cuerpo = '
 '; 
 
 //para el envío en formato HTML 
-$headers = "MIME-Version: 1.0\r\n"; 
-$headers .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
-
-//dirección del remitente 
-$headers .= "From: Recycler <diana.aviles2017@uteq.edu.com>\r\n"; 
-
-//ruta del mensaje desde origen a destino 
-$headers .= "Return-path: diana.aviles2017@uteq.edu.com\r\n"; 
-
-mail($destinatario,$asunto,$cuerpo,$headers) 
+$headers = "From: noreply@example.com"."\r\n"; 
+$headers .= "Reply-To: noreply@example.com"."\r\n"; 
+$headers .= "X-Mailer: PHP/".phpversion(); 
+$mail = @mail($destinatario,$asunto,$cuerpo,$headers);
+if($mail){
+echo "SI FUE";
+}
 ?>

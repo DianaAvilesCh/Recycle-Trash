@@ -3,6 +3,7 @@
 include('./controller/conexion.php');
 include 'alerts.html';
 session_start();
+
 // si esta definida sera igual a intentos en caso contrario sera 0
 $_SESSION["fails"] = isset($_SESSION["fails"]) ? $_SESSION["fails"] : 0;
 if (isset($_POST['submit'])) {
@@ -17,16 +18,20 @@ if (isset($_POST['submit'])) {
         $estado = $obj->stt;
         if ($estado == 1) {
             if (password_verify($pass, $dato)) {
+                //$_SESSION["newsession"]=""
                 header("Status: 301 Moved Permanently");
-                header("Location: ../index.php");
+                header("Location: ../view/index.php");
                 exit;
             } else {
                 $_SESSION['fails'] = $_SESSION['fails'] + 1;
                 if ($_SESSION['fails'] == 3) {
                     echo '<script language="javascript">
                     initAlert(warning,"Warning: Your account has been blocked");</script>';
+                    $_SESSION['fails'] = 0;
                 }
                 else{
+                    $sql = "UPDATE person SET state = 0 WHERE email='$email';";
+                    $resultado = pg_query($con, $sql);
                     echo '<script language="javascript">
                     initAlert(warning,"Warning: Incorret email or password.");
                     console.log(',$_SESSION['fails'],');</script>';

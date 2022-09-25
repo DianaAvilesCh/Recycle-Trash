@@ -22,7 +22,6 @@ h1 {
     font-size: 40px;
     font-weight: 500;
     letter-spacing: 2px;
-    padding: 10px 0;
 }
 
 h2 {
@@ -173,11 +172,17 @@ footer {
     h1 {
         font-size: 30px;
     }
+    p.w3l-register-p{
+        font-size: 11px;
+    }
 }
 
 @media(max-width:667px) {
     h1 {
         font-size: 25px;
+    }
+    p.w3l-register-p{
+        font-size: 10px;
     }
 }
 
@@ -188,6 +193,9 @@ footer {
     h1 {
         font-size: 43px;
     }
+    p.w3l-register-p{
+        font-size: 9px;
+    }
 }
 
 @media(max-width:568px) {
@@ -196,6 +204,9 @@ footer {
     }
     p.copyright-agileinfo {
         font-size: 14px;
+    }
+    p.w3l-register-p{
+        font-size: 8px;
     }
 }
 
@@ -209,17 +220,26 @@ footer {
     p.copyright-agileinfo {
         line-height: 1.8em;
     }
+    p.w3l-register-p{
+        font-size: 8px;
+    }
 }
 
 @media(max-width:414px) {
     h1 {
         font-size: 34px;
     }
+    p.w3l-register-p{
+        font-size: 8px;
+    }
 }
 
 @media(max-width:384px) {
     h1 {
         font-size: 30px;
+    }
+    p.w3l-register-p{
+        font-size: 8px;
     }
 }
 

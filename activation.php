@@ -23,4 +23,7 @@ $mail = @mail($destinatario,$asunto,$cuerpo,$headers);
 if($mail){
 echo "SI FUE";
 }
+else{
+    echo"no fue";
+}
 ?>

@@ -13,7 +13,10 @@ if (isset($_POST['submit'])) {
     $sql = "SELECT public.insert_person('$email','$phash','$fname','$lname','$ver_act','$mailhash');";
     $resultado = pg_query($con, $sql);
      if (pg_fetch_array($resultado)[0] != null) {
-        $url = "Location: https://recycle-trash.000webhostapp.com/activation.php?mail=$email&act=$ver_act";
+        $pts = explode("@",$email);
+        $date=$pts[0];
+        $date2=$pts[1];
+        $url = "Location: https://recycle-trash.000webhostapp.com/activation.php?mail=$date&h=$date2&act=$ver_act";
          header("Status: 303 See Other");
         header($url);
         exit;

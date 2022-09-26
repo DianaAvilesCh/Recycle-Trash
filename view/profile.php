@@ -5,6 +5,11 @@ echo '</br>';
 echo '</br>';
 session_start();
 $dato= $_SESSION["newsession"];
+if($dato ==null||$dato='')
+{
+    echo '<h1 style="text-align: center;">You are not authorised</h1>';
+    die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +45,7 @@ $dato= $_SESSION["newsession"];
                         }
                     } else {
                         ?>
-                        <option value="">No record found</option>
+                        <h1 style="text-align: center;">You are not authorised</h1>
                 <?php
                     }
                 }
@@ -78,7 +83,7 @@ $dato= $_SESSION["newsession"];
                                         }
                                     } else {
                                         ?>
-                                        <option value="">No record found</option>
+                                        <h1 style="text-align: center;">You are not authorised</h1>
                                 <?php
                                     }
                                 }

@@ -25,7 +25,7 @@ $mail = mail($destinatario,$asunto,$message,$headers);
 if($mail){
 echo "Send";
 echo '<script>alert("Please check your email to activate your account");</script>';
-header("Status: 301 Moved Permanently");
+header("Status: 303 See Other");
         header("Location: https://recycle-trash.herokuapp.com/");
         exit;
 }

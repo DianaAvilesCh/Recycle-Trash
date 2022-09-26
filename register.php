@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     $sql = "SELECT public.insert_person('$email','$phash','$fname','$lname','$ver_act','$mailhash');";
     $resultado = pg_query($con, $sql);
      if (pg_fetch_array($resultado)[0] != null) {
-         header("Status: 301 Moved Permanently");
+         header("Status: 303 See Other");
         header("Location: https://recycle-trash.000webhostapp.com/activation.php?mail=",$email,"&act=",$ver_act,"");
         exit;
     } else {

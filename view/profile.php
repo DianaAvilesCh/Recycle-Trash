@@ -1,8 +1,8 @@
 <?php
 session_start();
-if ($_SESSION["newsession"] == "nothing") {
+if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
     header("Status: 301 Moved Permanently");
-    header("Location: ../../index.php");
+    header("Location: /");
     exit;
 } else {
     include('sidebar.html');
@@ -10,6 +10,21 @@ if ($_SESSION["newsession"] == "nothing") {
     echo '</br>';
     echo '</br>';
     $dato = $_SESSION["newsession"];
+    if (isset($_POST['submit'])) {
+        $name = $_POST['first'];
+        $lname = $_POST['lastName'];
+        $email = $_POST['email_'];
+        if ($name != '' && $lname != '' && $email != '') {
+            $sql = "call update_person($1,$2,$3,$4,null);";
+            pg_prepare($con, "my_query", $sql);
+            $resul = pg_execute($con, "my_query", array("$dato", "$name", "$lname", "$email"));
+            $cont_entry = pg_fetch_array($resul)[0];
+            if ($cont_entry != null) {
+                header("Location: ../view/profile.php");
+            }
+        }
+        pg_close();
+    }
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -36,11 +51,11 @@ if ($_SESSION["newsession"] == "nothing") {
                         if (pg_num_rows($resultado)) {
                             while ($obj = pg_fetch_object($resultado)) { ?>
                                 <label for="firstName" class="form-label"><i class="bi bi-person-lines-fill"></i> First Name</label>
-                                <input type="text" class="form-control" id="firstName" value="<?php echo $obj->first_name ?>" disabled readonl>
+                                <input type="text" class="form-control" name="firstName" value="<?php echo $obj->first_name ?>" disabled readonl>
                                 <label for="lastName" class="form-label"><i class="bi bi-person-lines-fill"></i> Last Name</label>
-                                <input type="text" class="form-control" id="lastName" value="<?php echo $obj->last_name ?>" disabled readonl>
+                                <input type="text" class="form-control" name="lastName" value="<?php echo $obj->last_name ?>" disabled readonl>
                                 <label for="email" class="form-label"><i class="bi bi-at"></i>Email</label>
-                                <input type="email" class="form-control" id="email" value="<?php echo $obj->email ?>" disabled readonl>
+                                <input type="email" class="form-control" name="email_" value="<?php echo $obj->email ?>" disabled readonl>
                             <?php
                             }
                         } else {
@@ -66,40 +81,41 @@ if ($_SESSION["newsession"] == "nothing") {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="mb-3">
-                                    <?php
-                                    if ($con) {
-                                        $consulta = "SELECT per.first_name,per.last_name,per.email from person per where per.email='$dato'";
-                                        $resultado = pg_query($con, $consulta);
-                                        if (pg_num_rows($resultado)) {
-                                            while ($obj = pg_fetch_object($resultado)) { ?>
-                                                <label for="firstName" class="form-label"><i class="bi bi-person-lines-fill"></i> First Name</label>
-                                                <input type="text" class="form-control" id="firstName" value="<?php echo $obj->first_name ?>">
-                                                <label for="lastName" class="form-label"><i class="bi bi-person-lines-fill"></i> Last Name</label>
-                                                <input type="text" class="form-control" id="lastName" value="<?php echo $obj->last_name ?>">
-                                                <label for="email" class="form-label"><i class="bi bi-at"></i>Email</label>
-                                                <input type="email" class="form-control" id="email" value="<?php echo $obj->email ?>">
-                                            <?php
+                                <form action="profile.php" method="POST">
+                                    <div class="mb-3">
+                                        <?php
+                                        if ($con) {
+                                            $consulta = "SELECT per.first_name,per.last_name,per.email from person per where per.email='$dato'";
+                                            $resultado = pg_query($con, $consulta);
+                                            if (pg_num_rows($resultado)) {
+                                                while ($obj = pg_fetch_object($resultado)) { ?>
+                                                    <label for="firstName" class="form-label"><i class="bi bi-person-lines-fill"></i> First Name</label>
+                                                    <input type="text" class="form-control" name="first" value="<?php echo $obj->first_name ?>" require>
+                                                    <label for="lastName" class="form-label"><i class="bi bi-person-lines-fill"></i> Last Name</label>
+                                                    <input type="text" class="form-control" name="lastName" value="<?php echo $obj->last_name ?>" require>
+                                                    <label for="email" class="form-label"><i class="bi bi-at"></i>Email</label>
+                                                    <input type="email" class="form-control" name="email_" value="<?php echo $obj->email ?>" require>
+                                                <?php
+                                                }
+                                            } else {
+                                                ?>
+                                                <h1 style="text-align: center;">You are not authorised</h1>
+                                        <?php
                                             }
-                                        } else {
-                                            ?>
-                                            <h1 style="text-align: center;">You are not authorised</h1>
-                                    <?php
                                         }
-                                    }
-                                    ?>
-                                </div>
+                                        ?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-square"></i>
+                                            Cancel</button>
+                                        <button type="submit" name="submit" class="btn btn-success" style="float: right;margin: 1%;">
+                                            <i class="bi bi-file-earmark"></i>
+                                            Save</button>
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" style="float: right; margin: 1%;">
-                                    <i class="bi bi-x-square"></i>
-                                    Cancel</button>
-                                </button>
-                                <button type="button" class="btn btn-success" style="float: right;margin: 1%;">
-                                    <i class="bi bi-file-earmark"></i>
-                                    Save</button>
-                                </button>
-                            </div>
+
                         </div>
                     </div>
                 </div>

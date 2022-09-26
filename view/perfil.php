@@ -5,7 +5,6 @@ echo '</br>';
 echo '</br>';
 session_start();
 $dato= $_SESSION["newsession"];
-echo $dato
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -3,6 +3,13 @@ include 'sidebar.html';
 include('../controller/conexion.php');
 echo '</br>';
 echo '</br>';
+session_start();
+$dato= $_SESSION["newsession"];
+if($dato ==null||$dato='')
+{
+    echo '<h1 style="text-align: center;">You are not authorised</h1>';
+    die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

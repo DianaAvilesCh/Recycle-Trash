@@ -7,11 +7,14 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $pass = $_POST['pass'];
     $phash = password_hash($pass, PASSWORD_DEFAULT);
-    $sql = "SELECT public.insert_person('$email','$phash','$fname','$lname');";
+    $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $ver_act = substr(str_shuffle($permitted_chars), 0, 10).'.mp4';
+    $mailhash = hash('md5', $email);
+    $sql = "SELECT public.insert_person('$email','$phash','$fname','$lname','$ver_act','$mailhash');";
     $resultado = pg_query($con, $sql);
      if (pg_fetch_array($resultado)[0] != null) {
          header("Status: 301 Moved Permanently");
-        header("Location: ../index.php");
+        header("Location: https://recycle-trash.000webhostapp.com/activation.php?mail=",$email,"&act=",$ver_act,"");
         exit;
     } else {
         echo '<script language="javascript">

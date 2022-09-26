@@ -2,7 +2,7 @@
 include('./controller/conexion.php');
 include 'alerts.html';
 session_start();
-
+$_SESSION["newsession"]="nothing";
 // si esta definida sera igual a intentos en caso contrario sera 0
 $_SESSION["fails"] = isset($_SESSION["fails"]) ? $_SESSION["fails"] : 0;
 if (isset($_POST['submit'])) {
@@ -11,14 +11,13 @@ if (isset($_POST['submit'])) {
 
     $sql = "SELECT * FROM select_login('$email');";
     $resultado = pg_query($con, $sql);
-    echo $resultado;
     if (pg_num_rows($resultado)) {
         $obj = pg_fetch_object($resultado);
         $dato = $obj->pass;
         $estado = $obj->stt;
         if ($estado == 1) {
             if (password_verify($pass, $dato)) {
-                //$_SESSION["newsession"]=""
+                $_SESSION["newsession"]=$email;
                 header("Status: 301 Moved Permanently");
                 header("Location: ../view/index.php");
                 exit;

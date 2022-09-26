@@ -1,4 +1,5 @@
 <?php
+session_start();
 if ($_SESSION["newsession"] == "nothing") {
     header("Status: 301 Moved Permanently");
     header("Location: ../../index.php");

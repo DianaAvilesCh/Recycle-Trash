@@ -70,7 +70,7 @@ if (isset($_POST['submit'])) {
 
     <div class=" w3l-login-form">
         <div class="img-logo">
-            <img src="/resources/logo.png">
+            <img src="/resources/logo.png" class="img">
         </div>
         <h1>Login</h1>
         <form action="<?php $_SERVER["PHP_SELF"]; ?>" method="POST">

@@ -1,5 +1,5 @@
 <?php
-include('../controller/conexion.php');
+include('./controller/conexion.php');
 include 'alerts.html';
 if (isset($_POST['submit'])) {
     $fname = $_POST['name'];

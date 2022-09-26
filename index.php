@@ -2,8 +2,8 @@
 include('./controller/conexion.php');
 include 'alerts.html';
 session_start();
+$_SESSION["newsession"] = "nothing";
 if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
-    $_SESSION["newsession"] = "nothing";
     // si esta definida sera igual a intentos en caso contrario sera 0
     $_SESSION["fails"] = isset($_SESSION["fails"]) ? $_SESSION["fails"] : 0;
     if (isset($_POST['submit'])) {

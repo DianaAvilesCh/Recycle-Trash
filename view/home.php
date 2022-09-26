@@ -2,7 +2,7 @@
 session_start();
 if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
     header("Status: 301 Moved Permanently");
-    header("Location: ../../index.php");
+    header("Location: /");
     exit;
 } else {
     include('sidebar.html');

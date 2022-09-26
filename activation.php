@@ -19,10 +19,12 @@ if ($con) {
                 $consulta = "UPDATE person SET state = 1 WHERE email = $dato; ";
                 $resultado = pg_query($con, $consulta);
                 if ($resultado) {
-                    echo '<script>alert("Your account has been activated!");</script>';
-                    header("Status: 301 Moved Permanently");
-                    header("Location: https://recycle-trash.herokuapp.com/");
-                    exit;
+?>
+                    <script>
+                        alert("Your account has been activated!");
+                        window.location.replace("https://recycle-trash.herokuapp.com/");
+                    </script>
+<?php
                 } else {
                     echo 'An error has occurred, please try again!';
                 }

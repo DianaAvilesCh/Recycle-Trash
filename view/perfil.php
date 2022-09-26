@@ -1,8 +1,10 @@
 <?php
-include ('sidebar.html');
+include('sidebar.html');
 include('../controller/conexion.php');
 echo '</br>';
 echo '</br>';
+session_start();
+$dato= $_SESSION["newsession"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,16 +24,27 @@ echo '</br>';
         <h1 style="text-align: center;margin: 1%;">Personal Information</h1>
         <div class="container" style="width: 50%;">
             <div class="mb-3">
-                <label for="firstName" class="form-label"><i class="bi bi-person-lines-fill"></i> First Name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="First Name">
-            </div>
-            <div class="mb-3">
-                <label for="lastName" class="form-label"><i class="bi bi-person-lines-fill"></i> Last Name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label"><i class="bi bi-at"></i> Email</label>
-                <input type="text" class="form-control" id="email" placeholder="Email">
+                <?php
+                if ($con) {
+                    $consulta = "SELECT per.first_name,per.last_name,per.email from person per where per.id='$dato'";
+                    $resultado = pg_query($con, $consulta);
+                    if (pg_num_rows($resultado)) {
+                        while ($obj = pg_fetch_object($resultado)) { ?>
+                            <label for="firstName" class="form-label"><i class="bi bi-person-lines-fill"></i> First Name</label>
+                            <input type="text" class="form-control" id="firstName" value="<?php echo $obj->first_name ?>" disabled readonl>
+                            <label for="lastName" class="form-label"><i class="bi bi-person-lines-fill"></i> Last Name</label>
+                            <input type="text" class="form-control" id="lastName" value="<?php echo $obj->last_name ?>" disabled readonl>
+                            <label for="email" class="form-label"><i class="bi bi-at"></i>Email</label>
+                            <input type="email" class="form-control" id="email" value="<?php echo $obj->email ?>" disabled readonl>
+                        <?php
+                        }
+                    } else {
+                        ?>
+                        <option value="">No record found</option>
+                <?php
+                    }
+                }
+                ?>
             </div>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEdit" style="float: right;">
@@ -49,21 +62,38 @@ echo '</br>';
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="firstName" class="form-label"><i class="bi bi-person-lines-fill"></i> First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="First Name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="lastName" class="form-label"><i class="bi bi-person-lines-fill"></i> Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="email" placeholder="Email">
+                                <?php
+                                if ($con) {
+                                    $consulta = "SELECT per.first_name,per.last_name,per.email from person per where per.id=34";
+                                    $resultado = pg_query($con, $consulta);
+                                    if (pg_num_rows($resultado)) {
+                                        while ($obj = pg_fetch_object($resultado)) { ?>
+                                            <label for="firstName" class="form-label"><i class="bi bi-person-lines-fill"></i> First Name</label>
+                                            <input type="text" class="form-control" id="firstName" value="<?php echo $obj->first_name ?>">
+                                            <label for="lastName" class="form-label"><i class="bi bi-person-lines-fill"></i> Last Name</label>
+                                            <input type="text" class="form-control" id="lastName" value="<?php echo $obj->last_name ?>">
+                                            <label for="email" class="form-label"><i class="bi bi-at"></i>Email</label>
+                                            <input type="email" class="form-control" id="email" value="<?php echo $obj->email ?>">
+                                        <?php
+                                        }
+                                    } else {
+                                        ?>
+                                        <option value="">No record found</option>
+                                <?php
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-danger" style="float: right; margin: 1%;">
+                                <i class="bi bi-x-square"></i>
+                                Cancel</button>
+                            </button>
+                            <button type="button" class="btn btn-success" style="float: right;margin: 1%;">
+                                <i class="bi bi-file-earmark"></i>
+                                Save</button>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -2,12 +2,17 @@
 if (isset($_GET['mail'])) {
     $mail = $_GET['mail'];
 }
+if (isset($_GET['h'])) {
+    $h = $_GET['h'];
+}
 if (isset($_GET['act'])) {
     $act = $_GET['act'];
 
-    $mailhash = hash('md5', $mail);
+    $email = "$mail@$h";
 
-    $destinatario = "$mail";
+    $mailhash = hash('md5', $email);
+
+    $destinatario = "$email";
     $asunto = "VERIFICATION CODE";
 
     //para el envío en formato HTML 

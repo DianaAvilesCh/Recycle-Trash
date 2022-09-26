@@ -1,5 +1,5 @@
 <?php
-include('../controller/conexion.php');
+include('./controller/conexion.php');
 if ($con) {
     if (isset($_GET['mail'])) {
         $mail = $_GET['mail'];

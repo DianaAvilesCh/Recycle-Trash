@@ -5,6 +5,7 @@ echo '</br>';
 echo '</br>';
 session_start();
 $dato= $_SESSION["newsession"];
+echo $dato
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +27,7 @@ $dato= $_SESSION["newsession"];
             <div class="mb-3">
                 <?php
                 if ($con) {
-                    $consulta = "SELECT per.first_name,per.last_name,per.email from person per where per.id='$dato'";
+                    $consulta = "SELECT per.first_name,per.last_name,per.email from person per where per.email='$dato'";
                     $resultado = pg_query($con, $consulta);
                     if (pg_num_rows($resultado)) {
                         while ($obj = pg_fetch_object($resultado)) { ?>
@@ -64,7 +65,7 @@ $dato= $_SESSION["newsession"];
                             <div class="mb-3">
                                 <?php
                                 if ($con) {
-                                    $consulta = "SELECT per.first_name,per.last_name,per.email from person per where per.id=34";
+                                    $consulta = "SELECT per.first_name,per.last_name,per.email from person per where per.email='$dato'";
                                     $resultado = pg_query($con, $consulta);
                                     if (pg_num_rows($resultado)) {
                                         while ($obj = pg_fetch_object($resultado)) { ?>

@@ -2,11 +2,7 @@
 include('./controller/conexion.php');
 include 'alerts.html';
 session_start();
-if ($_SESSION["newsession"] != "nothing") {
-    header("Status: 301 Moved Permanently");
-    header("Location: ./view/home.php");
-    exit;
-} else {
+if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
     $_SESSION["newsession"] = "nothing";
     // si esta definida sera igual a intentos en caso contrario sera 0
     $_SESSION["fails"] = isset($_SESSION["fails"]) ? $_SESSION["fails"] : 0;
@@ -109,5 +105,9 @@ if ($_SESSION["newsession"] != "nothing") {
 
     </html>
 <?php
+} else {
+    header("Status: 301 Moved Permanently");
+    header("Location: ./view/home.php");
+    exit;
 }
 ?>

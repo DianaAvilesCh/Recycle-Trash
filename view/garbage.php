@@ -46,9 +46,12 @@ if (isset($_GET['id'])) {
                                 <h2 class="text"><?php echo $obj->description ?></h2>
                             </div>
                         </div>
-            <?php }
-                } else {
-                    header("Location: ../NotRegister.php");
+                    <?php }
+                } else { ?>
+                    <div>
+                        <h1 style="text-align: center;">No information available</h1>
+                    </div>
+            <?php
                 }
             }
             ?>

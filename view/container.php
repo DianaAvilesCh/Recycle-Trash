@@ -30,7 +30,7 @@ if (isset($_POST['Saver'])) {
         } else {
             echo 'There was a problem with the registry';
         }
-    } 
+    }
     pg_close();
 }
 ?>
@@ -43,76 +43,74 @@ if (isset($_POST['Saver'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <!--<link rel="stylesheel" href="/css/style.css">-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <title>Container</title>
 </head>
 
 <body>
-    <div style="margin: 2%;">
+    <div style="margin: 1%;">
         <h1 style="text-align: center;">Containers</h1>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+        <!-- Button trigger modal 
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNew" style="margin: 1%;">
+            <i class="bi bi-plus-circle"></i>
             New
-        </button>
+        </button>-->
 
         <!-- Modal -->
-
-        <div class="modal hide" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade" id="modalNew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New Container</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="container.php" method="POST">
-                        <div class="modal-body">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="cold-md-3">
-                                        <div class="form-group">
-                                            <label for="InputName">Name Container</label>
-                                            <input id="name" name="name" type="text" class="form-control" placeholder="Container Name" required="required" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="InputAddress">Address</label>
-                                            <input type="text" id="addressC" class="form-control" name="addressC" placeholder="Address">
-                                        </div>
-                                    </div>
-                                    <div class="cold-md-6">
-                                        <label for="InputGarbage">Select 3 types of waste</label>
-                                        <select id="resul" name="garbage[]" class="form-control mb-3 multiple-select" style="width: 100%;" multiple required="required">
-                                            <?php
-                                            if ($con) {
-                                                $consulta = "SELECT garbage.id,garbage.description from garbage";
-                                                $resultado = pg_query($con, $consulta);
-                                                if (pg_num_rows($resultado)) {
-                                                    while ($obj = pg_fetch_object($resultado)) { ?>
-                                                        <option value="<?php echo $obj->id ?>"><?php echo $obj->description ?></option>
+                    <div class="modal-body">
+                        <form action="container.php" method="POST">
+                            <div class="modal-body" role="document">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="cold-md-3">
+                                            <div class="form-group">
+                                                <label for="InputName">Name Container</label>
+                                                <input id="name" name="name" type="text" class="form-control" placeholder="Container Name" required="required" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="InputAddress">Address</label>
+                                                <input type="text" id="addressC" class="form-control" name="addressC" placeholder="Address">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="InputGarbage">Select 3 types of waste</label>
+                                                <select id="resul" name="garbage[]"  class="form-control mb-3" style="width: 100%;"  multiple aria-label="multiple select example" >
                                                     <?php
+                                                    if ($con) {
+                                                        $consulta = "SELECT garbage.id,garbage.description from garbage";
+                                                        $resultado = pg_query($con, $consulta);
+                                                        if (pg_num_rows($resultado)) {
+                                                            while ($obj = pg_fetch_object($resultado)) { ?>
+                                                                <option value="<?php echo $obj->id ?>"><?php echo $obj->description ?></option>
+                                                            <?php
+                                                            }
+                                                        } else {
+                                                            ?>
+                                                            <option value="">No record found</option>
+                                                    <?php
+                                                        }
                                                     }
-                                                } else {
                                                     ?>
-                                                    <option value="">No record found</option>
-                                            <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" name="cancel" class="Cancel btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" name="Saver" id="guardar" disabled="false" value="Register" class="Register btn btn-primary">Save changes</button>
-                        </div>
-                    </form>
+                            <div class="modal-footer">
+                                <button type="button" name="cancel" class="Cancel btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" name="Saver" id="guardar" disabled="false" value="Register" class="Register btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -131,7 +129,8 @@ if (isset($_POST['Saver'])) {
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $obj->name_container ?></h5>
                                     <p class="card-text"><?php echo $obj->address ?></p>
-                                    <a href="/view/garbage.php/?id=<?php echo $obj->id ?>" class="btn btn-primary">View</a>
+                                    <a href="/view/garbage.php/?id=<?php echo $obj->id ?>" class="btn btn-primary">
+                                        <i class="bi bi-eye"></i> View</a>
                                 </div>
                             </div>
                         </div>
@@ -142,10 +141,9 @@ if (isset($_POST['Saver'])) {
 
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $('.multiple-select').select2();

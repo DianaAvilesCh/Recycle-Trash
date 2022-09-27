@@ -2,7 +2,7 @@
 include('./controller/conexion.php');
 include 'alerts.html';
 session_start();
-$_SESSION["newsession"];
+$_SESSION["newsession"]=$_SESSION["newsession"];
 if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
     // si esta definida sera igual a intentos en caso contrario sera 0
     $_SESSION["fails"] = isset($_SESSION["fails"]) ? $_SESSION["fails"] : 0;
@@ -91,7 +91,7 @@ if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
                     <p id="passwordHelpBlock" class="w3l-register-p">Your password must be between 8 and 20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.</p>
                 </div>
                 <div class="forgot">
-                    <a href="#">Forgot Password?</a>
+                    <a href="./view/forgotpassword.php">Forgot Password?</a>
                     <p><input type="checkbox">Remember Me</p>
                 </div>
                 <button type="submit" name="submit" value="login">Login</button>

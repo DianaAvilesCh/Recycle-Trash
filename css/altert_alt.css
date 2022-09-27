@@ -1,0 +1,120 @@
+.body{
+    display: grid;
+    place-items: center;
+    overflow-x: hidden;
+  }
+  
+  .alert{
+    padding: 20px 40px;
+    min-width: 420px;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    border-radius: 4px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .alert.warning{
+      background: #ffdb9b;
+      border-left: 8px solid #ffa502;
+    }
+  .alert.danger{
+      background: #ff9b9b;
+      border-left: 8px solid #ff0263;
+    }
+    .alert.info{
+      background: #9bf8ff;
+      border-left: 8px solid #0267ff;
+    }
+    .alert.success{
+      background: #9bff9b;
+      border-left: 8px solid #02ff81;
+    }
+  .alert.showAlert{
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .alert.show{
+    animation: show_slide 2s ease forwards;
+  }
+  @keyframes show_slide {
+    0%{
+      transform: translateX(100%);
+    }
+    40%{
+      transform: translateX(-10%);
+    }
+    80%{
+      transform: translateX(0%);
+    }
+    100%{
+      transform: translateX(-10px);
+    }
+  }
+  .alert.hide{
+    animation: hide_slide 2s ease forwards;
+  }
+  @keyframes hide_slide {
+    0%{
+      transform: translateX(-10px);
+    }
+    40%{
+      transform: translateX(0%);
+    }
+    80%{
+      transform: translateX(-10%);
+    }
+    100%{
+      transform: translateX(100%);
+    }
+  }
+  .alert .fa-exclamation-circle{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+  }
+  .alert .msg{
+    padding: 0 20px;
+    font-size: 18px;
+  }
+  .alert .close-btn{
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 20px 18px;
+    cursor: pointer;
+  }
+  
+  .alert .close-btn .fas{
+      
+    font-size: 22px;
+    line-height: 40px;
+  }
+  .p-w{
+      color: #ce8500;
+  }
+  .s-w{
+      background: #ffdb9b
+  }
+  .p-d{
+      color: #ce001b;
+  }
+  .s-d{
+      background: #ff6666;
+  }
+  .p-i{
+      color: #0060ce;
+  }
+  .s-i{
+      background: #667dff;
+  }
+  .p-s{
+      color: #00ce11;
+  }
+  .s-s{
+      background: #66ff6e;
+  }

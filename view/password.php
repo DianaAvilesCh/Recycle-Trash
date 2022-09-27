@@ -7,6 +7,7 @@ if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
 } else {
     include 'sidebar.html';
     include('../controller/conexion.php');
+    include '../alerts.html';
     echo '</br>';
     echo '</br>';
     $dato = $_SESSION["newsession"];
@@ -29,22 +30,26 @@ if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
                         $resul = pg_execute($con, "my_quer", array("$dato", "$phash"));
                         $cont_entry = pg_fetch_array($resul)[0];
                         if ($cont_entry != null) {
-                            echo 'si guradr';
+                            echo '<script language="javascript">
+                initAlert(success_,"Info: Password reset");</script>';
                         }
                     } else {
-                        echo 'la contrase;a no es igual';
+                        echo '<script language="javascript">
+                initAlert(warning_,"The password does not match. Try again.");</script>';
                     }
                 } else {
-                    echo 'la contrase;a que ingreso es la misma que la nueva contrase;a';
+                    echo '<script language="javascript">
+                initAlert(warning_,"Warning: The current password and </br>the new password  cannot be the same.");</script>';
                 }
             } else {
-                echo 'la contrasena esta mal ';
+                echo '<script language="javascript">
+                initAlert(warning_,"Warning: Current password is not correct.");</script>';
             }
         }
         pg_close();
     }
     if (isset($_POST['cancel'])) {
-        $_SESSION["newsession"] = $email;
+        $_SESSION["newsession"] = $dato;
         header("Status: 301 Moved Permanently");
         header("Location: ../view/home.php");
     }
@@ -59,15 +64,15 @@ if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-        <title>Document</title>
         <title>Password change</title>
+        <link rel="stylesheet" href="/css/altert_alt.css">
     </head>
 
     <body>
         <div>
             <form action="password.php" method="POST">
-                <h1 style="text-align: center;margin: 1%;">Password change</h1>
-                <div class="container" style="width: 50%;">
+                <h1 class="title">Password change</h1>
+                <div class="container">
                     <div class="mb-3">
                         <label for="currentPassword" class="form-label"><i class="bi bi-key"></i> Current password</label>
                         <input type="text" class="form-control" name="currentPassword" placeholder="Current password">

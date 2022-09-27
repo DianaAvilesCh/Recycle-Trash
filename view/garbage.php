@@ -36,10 +36,10 @@ if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
             <div class="container">
                 <?php
                 if ($con) {
-                    $consulta = "SELECT state.id, g.description, state.destance_porce FROM state INNER join
-                container_garbage cg on cg.id = state.state_id_garbage INNER join
-                garbage g on g.id = cg.id_garbage where cg.id_container = $id
-                ORDER BY state.id desc LIMIT 3;";
+                    $consulta = "SELECT x.id, x.description, x.destance_porce from (SELECT state.id, g.description, state.destance_porce FROM state INNER join
+                    container_garbage cg on cg.id = state.state_id_garbage INNER join
+                    garbage g on g.id = cg.id_garbage where cg.id_container = $id
+                    ORDER BY state.id desc,g.description LIMIT 3)  as x ORDER BY x.id asc";
                     $resultado = pg_query($con, $consulta);
                     if (pg_num_rows($resultado)) {
                         while ($obj = pg_fetch_object($resultado)) { ?>

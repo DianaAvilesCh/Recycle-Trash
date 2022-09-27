@@ -8,6 +8,34 @@ if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
     include('sidebar.html');
     echo '</br>';
     echo '</br>';
+    echo '</br>';
+    include('../controller/conexion.php');
+    $sql1 = "SELECT con.id from container con;";
+    $resultado1 = pg_query($con, $sql1);
+    if (pg_num_rows($resultado1)) {
+        while ($obj1 = pg_fetch_object($resultado1)) {
+            $sql = "SELECT x.name_container, x.address,x.description, x.destance_porce from (SELECT state.id, g.description, state.destance_porce, 
+            con.address,con.name_container 
+            FROM state INNER join container_garbage cg on cg.id = state.state_id_garbage INNER join
+            garbage g on g.id = cg.id_garbage INNER join container con  on con.id = cg.id_container
+            where cg.id_container = $obj1->id
+            ORDER BY state.id desc,g.description LIMIT 3)  as x ORDER BY x.id asc";
+            $resultado = pg_query($con, $sql);
+            if (pg_num_rows($resultado)) {
+                while ($obj = pg_fetch_object($resultado)) {
+                    if ($obj->destance_porce == 100) {
+
+                        echo "<div style='text-align: center; padding-top:10px' ><div class='alert alert-success alert-dismissible fade show' 
+                        role='alert' style='width: 50%;margin:0px auto;>
+                        <h4 class='alert-heading'>Alert!</h4>
+                        <strong>$obj->name_container</strong> Full
+                        $obj->description garbage can <strong> Address</strong> $obj->address 
+                   </div></div>";
+                    }
+                }
+            }
+        }
+    }
 ?>
     <!DOCTYPE html>
     <html lang="en">

@@ -41,6 +41,12 @@ if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
                 echo 'la contrasena esta mal ';
             }
         }
+        pg_close();
+    }
+    if (isset($_POST['cancel'])) {
+        $_SESSION["newsession"] = $email;
+        header("Status: 301 Moved Permanently");
+        header("Location: ../view/home.php");
     }
 ?>
     <!DOCTYPE html>
@@ -74,7 +80,7 @@ if ($_SESSION["newsession"] == "nothing" || $_SESSION["newsession"] == null) {
                         <label for="repeatPassword" class="form-label"><i class="bi bi-key"></i> Repeat password</label>
                         <input type="text" class="form-control" name="repeatPassword" placeholder="Repeat Password">
                     </div>
-                    <button type="button" class="btn btn-danger" style="float: right; margin: 1%;">
+                    <button type="submit" name="cancel" class="btn btn-danger" style="float: right; margin: 1%;">
                         <i class="bi bi-x-square"></i>
                         Cancel</button>
                     </button>

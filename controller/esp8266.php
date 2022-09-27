@@ -38,7 +38,7 @@ if ($con) {
         
         $c=[];
         //Select id from container_garbage where id_container = 1
-        $consulta = "SELECT id FROM container_garbage where id_container = $d4";
+        $consulta = "SELECT id FROM container_garbage where id_container = $d4 order by id ASC";
         $resultado = pg_query($con, $consulta);
         if (pg_num_rows($resultado)) {
 

@@ -46,7 +46,7 @@ if ($con) {
                 array_push($c, $obj->id);
             }
         }
-            $consulta = "INSERT INTO state(state_id_garbage,destance,date,destance_porce) 
+            $consulta = "INSERT INTO state(state_id_garbage,destance_cm,date,destance_porce) 
                 VALUES ('$c[0]','$d1','$fecha_actual','$dp1'),('$c[1]','$d2','$fecha_actual','$dp2'),
                 ('$c[2]','$d3','$fecha_actual','$dp3');";
                 $resultado = pg_query($con, $consulta);

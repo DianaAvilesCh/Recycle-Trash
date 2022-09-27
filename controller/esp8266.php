@@ -24,20 +24,20 @@ if ($con) {
         date_default_timezone_set('america/bogota');
         $fecha_actual = date("Y-m-d H:i:s");
 
-        if ($d1 >45 ) {
-            $d1=45;
-        } if ($d2 >45 ) {
-            $d2=45;
-        } if ($d3 >45 ) {
-            $d3=45;
+        if ($d1 >50 ) {
+            $d1=50;
+        } if ($d2 >50 ) {
+            $d2=50;
+        } if ($d3 >50 ) {
+            $d3=50;
             if($d3 >100){
                 $d3 = 0;
             }
         }
 
-        $dp1 =(int)(((45-$d1)/45)*100);
-        $dp2 =(int)(((45-$d2)/45)*100);
-        $dp3 =(int)(((45-$d3)/45)*100);
+        $dp1 =(int)(((50-$d1)/50)*100);
+        $dp2 =(int)(((50-$d2)/50)*100);
+        $dp3 =(int)(((50-$d3)/50)*100);
         
         $c=[];
         //Select id from container_garbage where id_container = 1

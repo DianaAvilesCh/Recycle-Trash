@@ -24,17 +24,17 @@ if ($con) {
         date_default_timezone_set('america/bogota');
         $fecha_actual = date("Y-m-d H:i:s");
 
-        if ($d1 >45 ) {
-            $d1=45;
-        } if ($d2 >45 ) {
-            $d2=45;
-        } if ($d3 >45 ) {
-            $d3=45;
+        if ($d1 >50 ) {
+            $d1=50;
+        } if ($d2 >50 ) {
+            $d2=50;
+        } if ($d3 >100 ) {
+            $d3=00;
         }
 
-        $dp1 =(int)(((45-$d1)/45)*100);
-        $dp2 =(int)(((45-$d2)/45)*100);
-        $dp3 =(int)(((45-$d3)/45)*100);
+        $dp1 =(int)(((50-$d1)/50)*100);
+        $dp2 =(int)(((50-$d2)/50)*100);
+        $dp3 =(int)(((50-$d3)/50)*100);
         
         $c=[];
         //Select id from container_garbage where id_container = 1
@@ -46,7 +46,7 @@ if ($con) {
                 array_push($c, $obj->id);
             }
         }
-            $consulta = "INSERT INTO state(state_id_garbage,destance,date,destance_porce) 
+            $consulta = "INSERT INTO state(state_id_garbage,destance_cm,date,destance_porce) 
                 VALUES ('$c[0]','$d1','$fecha_actual','$dp1'),('$c[1]','$d2','$fecha_actual','$dp2'),
                 ('$c[2]','$d3','$fecha_actual','$dp3');";
                 $resultado = pg_query($con, $consulta);

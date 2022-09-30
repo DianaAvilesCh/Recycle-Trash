@@ -1,21 +1,21 @@
 <?php
+include('./conexion.php');
+//include('./prediction.php');
 
-include 'conexion.php';
-  //if post of arduino
-    if (file_get_contents('php://input')) {
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true);
-    $data = $data['fotografias'];
-
-    list($type, $data) = explode(';', $data);
-    list(, $data)      = explode(',', $data);
-    $data = base64_decode($data);
-    $DateAndTime = (string) date('mdY-his', time());
-    $nomimg = "../capture/images$DateAndTime.png";
-    file_put_contents($nomimg, $data);  
-    
-    $consulta = "UPDATE image SET url = '$nomimg';";
-    $resultado = pg_query($con, $consulta);
-   //$nomimg = "../capture/images09142022-071619.png";
+$dato = "";
+$sql = "SELECT state_cam FROM image";
+$resultado = pg_query($con, $sql);
+if (pg_num_rows($resultado)) {
+    while ($obj = pg_fetch_object($resultado)) {
+        $dato = $obj->state;
+        echo $obj->state;
     }
+}
+
+if($dato != "nada"){ 
+    $sql = "UPDATE image SET state_cam='no';";
+    $resultado = pg_query($con, $sql);
+}
+
+
 ?>

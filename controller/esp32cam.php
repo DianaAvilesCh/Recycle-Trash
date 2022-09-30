@@ -7,8 +7,8 @@ $sql = "SELECT state_cam FROM image";
 $resultado = pg_query($con, $sql);
 if (pg_num_rows($resultado)) {
     while ($obj = pg_fetch_object($resultado)) {
-        $dato = $obj->state;
-        echo $obj->state;
+        $dato = $obj->state_cam;
+        echo $obj->state_cam;
     }
 }
 

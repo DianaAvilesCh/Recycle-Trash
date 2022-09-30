@@ -10,5 +10,13 @@ if ($con) {
       echo "CORRECTO";
     }
   }
+  if (isset($_POST['dato'])) {
+    $dato = $_POST['dato'];
+    $sql = "UPDATE image SET state_cam='$dato';";
+    $resultado = pg_query($con, $sql);
+    if ($resultado) {
+      echo "si";
+    }
+  }
 }
 ?>
